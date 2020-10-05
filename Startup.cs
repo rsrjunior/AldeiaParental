@@ -12,6 +12,7 @@ using AldeiaParental.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AldeiaParental.Models;
 
 namespace AldeiaParental
 {
@@ -30,8 +31,12 @@ namespace AldeiaParental
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<AldeiaParentalUser, AldeiaParentalRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
             services.AddRazorPages();
         }
 
@@ -62,6 +67,8 @@ namespace AldeiaParental
             {
                 endpoints.MapRazorPages();
             });
+
+            //ActorsUserData.Initialize(context, userManager, roleManager).Wait();
         }
     }
 }
