@@ -13,5 +13,6 @@ namespace AldeiaParental.Data
             : base(options)
         {
         }
+        public DbSet<AldeiaParental.Models.Region> Region { get; set; }
     }
 }

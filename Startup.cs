@@ -37,7 +37,16 @@ namespace AldeiaParental
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
-            services.AddRazorPages();
+           
+            services.AddAuthorization(options=>
+                options.AddPolicy("AdministradorPolicy",
+                                    policy=>policy.RequireRole("Administrador")
+                                    )
+                );
+
+            services.AddRazorPages(options =>
+                options.Conventions.AuthorizeFolder("/Regions", "AdministradorPolicy")
+                ) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
