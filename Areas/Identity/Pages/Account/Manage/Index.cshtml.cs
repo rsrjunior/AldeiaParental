@@ -24,11 +24,13 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
         public IndexModel(
             UserManager<AldeiaParentalUser> userManager,
             RoleManager<AldeiaParentalRole> roleManager,
-            SignInManager<AldeiaParentalUser> signInManager)
+            SignInManager<AldeiaParentalUser> signInManager,
+            ILogger<IndexModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _logger = logger;
         }
 
         public string Username { get; set; }
@@ -105,17 +107,19 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
+                    StatusMessage+= "Unexpected error when trying to set phone number.";
                 }
             }
             if (Input.Address != user.Address)
             {
                 user.Address = Input.Address;
 
-                await _userManager.UpdateAsync(user);
-                
-
+                var updateAddress = await _userManager.UpdateAsync(user);
+                if (!updateAddress.Succeeded)
+                {
+                    StatusMessage += "Unexpected error when trying to set Address.";
+                }
+       
             }
 
             #region set roles
@@ -127,6 +131,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                 {
                     _logger.LogWarning("Could not set role for " + user.UserName
                     + " The role " + _customerRole + "does not exist");
+                    StatusMessage += "Role does not exists:" + _customerRole;
                 }
                 else
                 {
@@ -141,6 +146,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                         {
                             _logger.LogWarning("Could not set " + _customerRole + " role for " + user.UserName
                         + " " + ex.Message);
+                            StatusMessage += "Error setting Role:" + _customerRole;
                         }
                     }
 
@@ -159,6 +165,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                     {
                         _logger.LogWarning("Could not remove " + _customerRole + "from role for " + user.UserName
                     + " " + ex.Message);
+                        StatusMessage += "Could not remove Role:" + _customerRole;
                     }
                 }
 
@@ -172,6 +179,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                 {
                     _logger.LogWarning("Could not set role for " + user.UserName
                     + " The role " + _caregiverRole + "does not exist");
+                    StatusMessage += "Role does not exists:" + _caregiverRole;
                 }
                 else
                 {
@@ -186,6 +194,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                         {
                             _logger.LogWarning("Could not set " + _caregiverRole + " role for " + user.UserName
                         + " " + ex.Message);
+                            StatusMessage += "Could not set Role:" + _caregiverRole;
                         }
                     }
 
@@ -204,6 +213,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                     {
                         _logger.LogWarning("Could not remove " + _caregiverRole + "from role for " + user.UserName
                     + " " + ex.Message);
+                        StatusMessage += "Could not remove Role:" + _caregiverRole;
                     }
                 }
 
@@ -213,7 +223,14 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
 
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            if (StatusMessage!=null)
+            {
+                _logger.LogWarning(StatusMessage);
+            }
+            else
+            {
+                StatusMessage = "Your profile has been updated";
+            }
             return RedirectToPage();
         }
     }

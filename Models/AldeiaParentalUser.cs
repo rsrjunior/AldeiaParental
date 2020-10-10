@@ -16,5 +16,8 @@ namespace AldeiaParental.Models
         public string LastName { get; set; }
         [PersonalData]
         public string Address { get; set; }
+
+        public List<ServiceLocation> ServiceLocations { get; set; }
+
     }
 }

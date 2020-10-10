@@ -29,7 +29,7 @@ namespace AldeiaParental
                 return NotFound();
             }
 
-            Region = await _context.Region.FirstOrDefaultAsync(m => m.ID == id);
+            Region = await _context.Region.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Region == null)
             {

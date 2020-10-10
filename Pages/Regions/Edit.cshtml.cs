@@ -30,7 +30,7 @@ namespace AldeiaParental
                 return NotFound();
             }
 
-            Region = await _context.Region.FirstOrDefaultAsync(m => m.ID == id);
+            Region = await _context.Region.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Region == null)
             {
@@ -56,7 +56,7 @@ namespace AldeiaParental
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegionExists(Region.ID))
+                if (!RegionExists(Region.Id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace AldeiaParental
 
         private bool RegionExists(int id)
         {
-            return _context.Region.Any(e => e.ID == id);
+            return _context.Region.Any(e => e.Id == id);
         }
     }
 }
