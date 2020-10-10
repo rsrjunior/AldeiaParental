@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 
-namespace AldeiaParental.Pages.Regions
+namespace AldeiaParental.Pages.ServiceLocations
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace AldeiaParental.Pages.Regions
             _context = context;
         }
 
-        public Region Region { get; set; }
+        public ServiceLocation ServiceLocation { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,10 @@ namespace AldeiaParental.Pages.Regions
                 return NotFound();
             }
 
-            Region = await _context.Region.FirstOrDefaultAsync(m => m.Id == id);
+            ServiceLocation = await _context.ServiceLocation
+                .Include(s => s.Region).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Region == null)
+            if (ServiceLocation == null)
             {
                 return NotFound();
             }

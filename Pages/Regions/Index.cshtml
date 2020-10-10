@@ -1,5 +1,5 @@
 ﻿@page
-@model AldeiaParental.IndexModel
+@model AldeiaParental.Pages.Regions.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,16 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Regions[0].Name)
+                @Html.DisplayNameFor(model => model.Region[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Regions[0].Description)
+                @Html.DisplayNameFor(model => model.Region[0].Description)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Regions) {
+@foreach (var item in Model.Region) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

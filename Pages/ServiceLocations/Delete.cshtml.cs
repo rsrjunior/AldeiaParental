@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 
-namespace AldeiaParental.Pages.Regions
+namespace AldeiaParental.Pages.ServiceLocations
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace AldeiaParental.Pages.Regions
         }
 
         [BindProperty]
-        public Region Region { get; set; }
+        public ServiceLocation ServiceLocation { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,10 @@ namespace AldeiaParental.Pages.Regions
                 return NotFound();
             }
 
-            Region = await _context.Region.FirstOrDefaultAsync(m => m.Id == id);
+            ServiceLocation = await _context.ServiceLocation
+                .Include(s => s.Region).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Region == null)
+            if (ServiceLocation == null)
             {
                 return NotFound();
             }
@@ -45,11 +46,11 @@ namespace AldeiaParental.Pages.Regions
                 return NotFound();
             }
 
-            Region = await _context.Region.FindAsync(id);
+            ServiceLocation = await _context.ServiceLocation.FindAsync(id);
 
-            if (Region != null)
+            if (ServiceLocation != null)
             {
-                _context.Region.Remove(Region);
+                _context.ServiceLocation.Remove(ServiceLocation);
                 await _context.SaveChangesAsync();
             }
 

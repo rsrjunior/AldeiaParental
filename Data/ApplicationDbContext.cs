@@ -14,5 +14,6 @@ namespace AldeiaParental.Data
         {
         }
         public DbSet<AldeiaParental.Models.Region> Region { get; set; }
+        public DbSet<AldeiaParental.Models.ServiceLocation> ServiceLocation { get; set; }
     }
 }

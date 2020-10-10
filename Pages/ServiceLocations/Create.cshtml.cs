@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 
-namespace AldeiaParental.Pages.Regions
+namespace AldeiaParental.Pages.ServiceLocations
 {
     public class CreateModel : PageModel
     {
@@ -21,11 +21,12 @@ namespace AldeiaParental.Pages.Regions
 
         public IActionResult OnGet()
         {
+        ViewData["RegionId"] = new SelectList(_context.Region, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
-        public Region Region { get; set; }
+        public ServiceLocation ServiceLocation { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.
@@ -36,7 +37,7 @@ namespace AldeiaParental.Pages.Regions
                 return Page();
             }
 
-            _context.Region.Add(Region);
+            _context.ServiceLocation.Add(ServiceLocation);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
