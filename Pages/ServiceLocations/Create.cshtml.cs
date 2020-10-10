@@ -22,6 +22,7 @@ namespace AldeiaParental.Pages.ServiceLocations
         public IActionResult OnGet()
         {
         ViewData["RegionId"] = new SelectList(_context.Region, "Id", "Id");
+        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

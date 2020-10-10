@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ServiceLocation.UserId" class="control-label"></label>
-                <input asp-for="ServiceLocation.UserId" class="form-control" />
+                <select asp-for="ServiceLocation.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="ServiceLocation.UserId" class="text-danger"></span>
             </div>
             <div class="form-group">

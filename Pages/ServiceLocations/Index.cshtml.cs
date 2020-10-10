@@ -24,7 +24,8 @@ namespace AldeiaParental.Pages.ServiceLocations
         public async Task OnGetAsync()
         {
             ServiceLocation = await _context.ServiceLocation
-                .Include(s => s.Region).ToListAsync();
+                .Include(s => s.Region)
+                .Include(s => s.User).ToListAsync();
         }
     }
 }

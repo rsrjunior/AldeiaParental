@@ -31,13 +31,15 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
 
             ServiceLocation = await _context.ServiceLocation
-                .Include(s => s.Region).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Region)
+                .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
 
             if (ServiceLocation == null)
             {
                 return NotFound();
             }
            ViewData["RegionId"] = new SelectList(_context.Region, "Id", "Id");
+           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

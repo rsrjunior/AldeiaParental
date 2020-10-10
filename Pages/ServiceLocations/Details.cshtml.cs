@@ -29,7 +29,8 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
 
             ServiceLocation = await _context.ServiceLocation
-                .Include(s => s.Region).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Region)
+                .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
 
             if (ServiceLocation == null)
             {
