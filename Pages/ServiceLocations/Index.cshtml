@@ -23,9 +23,6 @@
                 @Html.DisplayNameFor(model => model.ServiceLocation[0].Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceLocation[0].User)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ServiceLocation[0].Region)
             </th>
             <th></th>
@@ -44,10 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Region.Id)
+                @Html.DisplayFor(modelItem => item.Region.Name)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

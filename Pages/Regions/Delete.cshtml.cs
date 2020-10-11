@@ -12,9 +12,9 @@ namespace AldeiaParental.Pages.Regions
 {
     public class DeleteModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(AldeiaParental.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }

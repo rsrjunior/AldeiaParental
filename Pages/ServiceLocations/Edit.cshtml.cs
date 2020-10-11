@@ -8,16 +8,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AldeiaParental.Pages.ServiceLocations
 {
     public class EditModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<AldeiaParentalUser> _userManager;
 
-        public EditModel(AldeiaParental.Data.ApplicationDbContext context)
+
+        public EditModel(ApplicationDbContext context,
+            UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -31,6 +36,7 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
 
             ServiceLocation = await _context.ServiceLocation
+                .Where(s => s.UserId == _userManager.GetUserId(User))
                 .Include(s => s.Region)
                 .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
 
@@ -38,8 +44,9 @@ namespace AldeiaParental.Pages.ServiceLocations
             {
                 return NotFound();
             }
-           ViewData["RegionId"] = new SelectList(_context.Region, "Id", "Id");
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+
+            ViewData["Region"] = new SelectList(_context.Region, "Id", "Name");
+
             return Page();
         }
 
@@ -47,6 +54,9 @@ namespace AldeiaParental.Pages.ServiceLocations
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            //ensure that only updates on current auth user
+            ServiceLocation.UserId = _userManager.GetUserId(User);
+
             if (!ModelState.IsValid)
             {
                 return Page();

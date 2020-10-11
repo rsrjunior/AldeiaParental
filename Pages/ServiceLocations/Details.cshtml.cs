@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AldeiaParental.Pages.ServiceLocations
 {
     public class DetailsModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<AldeiaParentalUser> _userManager;
 
-        public DetailsModel(AldeiaParental.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context,
+            UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public ServiceLocation ServiceLocation { get; set; }
@@ -29,6 +33,7 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
 
             ServiceLocation = await _context.ServiceLocation
+                .Where(s=>s.UserId==_userManager.GetUserId(User))
                 .Include(s => s.Region)
                 .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
 

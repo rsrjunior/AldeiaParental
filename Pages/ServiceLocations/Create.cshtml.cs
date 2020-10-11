@@ -7,22 +7,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AldeiaParental.Pages.ServiceLocations
 {
     public class CreateModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<AldeiaParentalUser> _userManager;
 
-        public CreateModel(AldeiaParental.Data.ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context,
+            UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["RegionId"] = new SelectList(_context.Region, "Id", "Id");
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        ViewData["Region"] = new SelectList(_context.Region, "Id", "Name");
+         
             return Page();
         }
 
@@ -33,6 +37,9 @@ namespace AldeiaParental.Pages.ServiceLocations
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            //setar o userId para o Id do Usuario da seção.
+            ServiceLocation.UserId = _userManager.GetUserId(User);
+
             if (!ModelState.IsValid)
             {
                 return Page();

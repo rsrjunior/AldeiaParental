@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AldeiaParental.Pages.ServiceLocations
 {
     public class DeleteModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<AldeiaParentalUser> _userManager;
 
-        public DeleteModel(AldeiaParental.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context,
+            UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -30,6 +34,7 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
 
             ServiceLocation = await _context.ServiceLocation
+                .Where(s=>s.UserId == _userManager.GetUserId(User))
                 .Include(s => s.Region)
                 .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
 
@@ -49,10 +54,14 @@ namespace AldeiaParental.Pages.ServiceLocations
 
             ServiceLocation = await _context.ServiceLocation.FindAsync(id);
 
+           
             if (ServiceLocation != null)
             {
-                _context.ServiceLocation.Remove(ServiceLocation);
-                await _context.SaveChangesAsync();
+                if (ServiceLocation.UserId==_userManager.GetUserId(User))
+                {
+                    _context.ServiceLocation.Remove(ServiceLocation);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./Index");

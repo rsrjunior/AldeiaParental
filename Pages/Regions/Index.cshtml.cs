@@ -12,9 +12,9 @@ namespace AldeiaParental.Pages.Regions
 {
     public class IndexModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(AldeiaParental.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }

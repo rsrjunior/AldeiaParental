@@ -12,9 +12,9 @@ namespace AldeiaParental.Pages.Regions
 {
     public class DetailsModel : PageModel
     {
-        private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(AldeiaParental.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
