@@ -7,6 +7,7 @@ using AldeiaParental.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace AldeiaParental.Pages.FindCaregivers
 {
@@ -28,19 +29,37 @@ namespace AldeiaParental.Pages.FindCaregivers
             _roleManager = roleManager;
             _signInManager = signInManager;
         }
-        public IList<AldeiaParentalUser> Caregivers { get; set; }
-        public IList<ServiceLocation> ServiceLocations { get; set; }
-        public async Task<IActionResult> OnGetAsync()
+        public class Caregiver
         {
-            var careGivers = await _userManager.GetUsersInRoleAsync(_caregiverRole);
+            public string UserId { get; set; }
+            public string FirstName { get; set; }
 
-            if (careGivers == null)
+        }
+        public IList<Caregiver> Caregivers { get; set; }
+        
+        public IList<ServiceLocation> ServiceLocations { get; set; }
+        public async Task<IActionResult> OnGetAsync(int? regionId, bool? atHome)
+        {
+            IQueryable<ServiceLocation> serviceLocations = _context.ServiceLocation
+                .Include(s => s.Region)
+                .Include(s => s.User);
+
+            if (regionId!=null)
             {
-                return NotFound($"No Caregivers Found'.");
+                serviceLocations = serviceLocations.Where(s => s.RegionId == regionId);
             }
-            Caregivers = careGivers
-                .Where(u => u.EmailConfirmed)
-                .ToList();
+            if (atHome!=null)
+            {
+                serviceLocations = serviceLocations.Where(s => s.AtCustomerHome == atHome);
+            }
+            var userList = serviceLocations.Select(s => new Caregiver()
+            {
+                UserId = s.UserId,
+                FirstName = s.User.FirstName
+            }).Distinct();
+
+            Caregivers = userList.ToList();
+         
 
             return Page();
         }
