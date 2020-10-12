@@ -1,0 +1,32 @@
+﻿@page
+@model AldeiaParental.Pages.FindCaregivers.IndexModel
+@{
+  ViewData["Title"] = "Find Caregivers";
+}
+
+<h1>Find Caregivers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Caregivers[0].FirstName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Caregivers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
