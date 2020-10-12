@@ -58,7 +58,7 @@ namespace AldeiaParental.Pages.FindCaregivers
                 FirstName = s.User.FirstName
             }).Distinct();
 
-            Caregivers = userList.ToList();
+            Caregivers = await userList.ToListAsync();
          
 
             return Page();
