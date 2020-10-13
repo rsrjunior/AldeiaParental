@@ -45,13 +45,17 @@ namespace AldeiaParental
                 options.AddPolicy("CuidadorPolicy",
                                     policy => policy.RequireRole("Cuidador")
                                     );
-                }
+                options.AddPolicy("ClientePolicy",
+                                    policy => policy.RequireRole("Cliente")
+                                    );
+            }
             ); 
 
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Regions", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/ServiceLocations", "CuidadorPolicy");
+                options.Conventions.AuthorizeFolder("/FindCaregivers", "ClientePolicy");
             });
         }
 
