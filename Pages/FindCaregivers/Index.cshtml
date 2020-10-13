@@ -1,11 +1,36 @@
 ﻿@page
 @model AldeiaParental.Pages.FindCaregivers.IndexModel
 @{
-  ViewData["Title"] = "Find Caregivers";
+    ViewData["Title"] = "Find Caregivers";
 }
 
 <h1>Find Caregivers</h1>
 
+
+    <h2>Filter</h2>
+    <form asp-page="./Index" method="get">
+        <div class="form-actions no-color">
+                Region:
+                <select name="regionId" class="form-control">
+                    <option value="null" selected="@(Model.SelectedRegionId==null?true:false)">Any</option>
+                    @foreach (var item in Model.RegionsList)
+                    {
+                        <option value="@item.Value" selected="@(item.Value==Model.SelectedRegionId.ToString())">@item.Text</option>
+                    }
+
+                </select>
+                Service Location:
+                <select name="atHome" class="form-control">
+                    <option value="null" selected="@(Model.AtHome == null ? true : false)">Wherever</option>
+                    <option value="true" selected="@(Model.AtHome != null ? ((bool)Model.AtHome?true:false) : false)">My Home</option>
+                    <option value="false"selected="@(Model.AtHome != null ? ((bool)Model.AtHome?false:true) : false)">Not at my Home</option>
+                </select>
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-page="./Index">Back to full List</a>
+        </div>
+    </form>
+
+    
 <table class="table">
     <thead>
         <tr>

@@ -7,6 +7,7 @@ using AldeiaParental.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AldeiaParental.Pages.FindCaregivers
@@ -33,24 +34,33 @@ namespace AldeiaParental.Pages.FindCaregivers
         {
             public string UserId { get; set; }
             public string FirstName { get; set; }
-
+        }
+        public class RegionFilter
+        {
+            public int? RegionId { get; set; }
+            public string RegionName { get; set; }
         }
         public IList<Caregiver> Caregivers { get; set; }
-        
-        public IList<ServiceLocation> ServiceLocations { get; set; }
+
+        public int? SelectedRegionId { get; set; }
+        public SelectList RegionsList { get; set; }
+        public bool? AtHome { get; set; }
         public async Task<IActionResult> OnGetAsync(int? regionId, bool? atHome)
         {
             IQueryable<ServiceLocation> serviceLocations = _context.ServiceLocation
                 .Include(s => s.Region)
                 .Include(s => s.User);
 
-            if (regionId!=null)
+            SelectedRegionId = regionId;
+
+            if (SelectedRegionId != null)
             {
-                serviceLocations = serviceLocations.Where(s => s.RegionId == regionId);
+                serviceLocations = serviceLocations.Where(s => s.RegionId == SelectedRegionId);
             }
-            if (atHome!=null)
+            AtHome = atHome;
+            if (AtHome != null)
             {
-                serviceLocations = serviceLocations.Where(s => s.AtCustomerHome == atHome);
+                serviceLocations = serviceLocations.Where(s => s.AtCustomerHome == AtHome);
             }
             var userList = serviceLocations.Select(s => new Caregiver()
             {
@@ -59,7 +69,8 @@ namespace AldeiaParental.Pages.FindCaregivers
             }).Distinct();
 
             Caregivers = await userList.ToListAsync();
-         
+
+            RegionsList = new SelectList(_context.Region, "Id", "Name");
 
             return Page();
         }
