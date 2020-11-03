@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /Data/ActorsUserData.cs
 /.vscode
+appsettings.json
