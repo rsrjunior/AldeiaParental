@@ -14,8 +14,10 @@ namespace AldeiaParental.Models
         public string Address { get; set; }
 
         public AldeiaParentalUser User { get; set; }
+        [Required]
         public string UserId { get; set; }
         public Region Region { get; set; }
+        [Required]
         public int RegionId { get; set; }
 
     }
