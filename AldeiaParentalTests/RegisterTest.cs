@@ -8,26 +8,6 @@ namespace AldeiaParentalTests
 {
     public class RegisterTest
     {
-        [Fact]
-        public void FullNameRequired()
-        {
-            Assert.True(false);
-        }
-        [Fact]
-        public void EmailRequired()
-        {
-            Assert.True(false);
-        }
-        [Fact]
-        public void UserProfileRequired()
-        {
-            Assert.True(false);
-        }
-        [Fact]
-        public void PasswordRequired()
-        {
-            Assert.True(false);
-        }
         [Theory]
         [InlineData("FirtName", "LastName", "mail@mail.com", "password")]
         public void RegisterShouldPass(string firstName, string lastName, string email, string password)
@@ -57,7 +37,6 @@ namespace AldeiaParentalTests
         [InlineData(null, "LastName", null, null)]
         [InlineData(null, null, "mail@mail.com", "password")]
         [InlineData(null, null, "mail@mail.com", null)]
-        [InlineData(null, null, null, "password")]
         [InlineData(null, null, null, null)]
         public void RegisterShouldFail(string firstName, string lastName, string email, string password)
         {
