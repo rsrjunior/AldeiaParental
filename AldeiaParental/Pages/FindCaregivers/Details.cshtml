@@ -1,13 +1,13 @@
 ﻿@page
 @model AldeiaParental.Pages.FindCaregivers.DetailsModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes do Cuidador</h1>
 
 <div>
-    <h4>Caregiver</h4>
+    <h4>Cuidador</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -44,7 +44,7 @@
 </div>
 
 <div>
-    <h4>Caregiver Service Locations</h4>
+    <h4>Locais de Atendimento do Cuidador</h4>
     <table class="table">
         <thead>
             <tr>
@@ -78,9 +78,9 @@
     </table>
 
     <div>
-        <h3>Home Care Regions</h3>
+        <h3>Atendimento à domicílio</h3>
         <h4>
-            The Caregiver can go to your place at this regions:
+            O Cuidador pode atender no conforto de sua casa, nas seguintes regiões:
         </h4>
 
             @foreach (var item in Model.ServiceLocations.Where(s=>s.AtCustomerHome).Distinct() )
@@ -90,5 +90,5 @@
 </div>
 </div>
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Listar cuidadores</a>
 </div>

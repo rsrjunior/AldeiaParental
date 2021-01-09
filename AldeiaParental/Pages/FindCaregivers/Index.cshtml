@@ -1,16 +1,16 @@
 ﻿@page
 @model AldeiaParental.Pages.FindCaregivers.IndexModel
 @{
-    ViewData["Title"] = "Find Caregivers";
+    ViewData["Title"] = "Encontrar Cuidadores";
 }
 
-<h1>Find Caregivers</h1>
+<h1>Encontrar Cuidadores</h1>
 
 
-    <h2>Filter</h2>
+    <h2>Filtros</h2>
     <form asp-page="./Index" method="get">
         <div class="form-actions no-color">
-                Region:
+                Região:
                 <select name="regionId" class="form-control">
                     <option value="null" selected="@(Model.SelectedRegionId==null?true:false)">Any</option>
                     @foreach (var item in Model.RegionsList)
@@ -19,14 +19,14 @@
                     }
 
                 </select>
-                Service Location:
+                Local de Atendimento:
                 <select name="atHome" class="form-control">
                     <option value="null" selected="@(Model.AtHome == null ? true : false)">Wherever</option>
                     <option value="true" selected="@(Model.AtHome != null ? ((bool)Model.AtHome?true:false) : false)">My Home</option>
                     <option value="false"selected="@(Model.AtHome != null ? ((bool)Model.AtHome?false:true) : false)">Not at my Home</option>
                 </select>
                 <input type="submit" value="Search" class="btn btn-primary" /> |
-                <a asp-page="./Index">Back to full List</a>
+                <a asp-page="./Index">Listar sem filtros</a>
         </div>
     </form>
 
@@ -48,7 +48,7 @@
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.UserId">Details</a>
+                    <a asp-page="./Details" asp-route-id="@item.UserId">Detalhes</a>
                 </td>
             </tr>
         }
