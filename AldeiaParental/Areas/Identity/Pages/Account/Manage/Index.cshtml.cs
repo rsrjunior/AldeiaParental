@@ -44,13 +44,13 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefone")]
             public string PhoneNumber { get; set; }
-            [Display(Name = "Customer")]
+            [Display(Name = "Cliente")]
             public bool Customer { get; set; }
-            [Display(Name = "Caregiver")]
+            [Display(Name = "Cuidador")]
             public bool Caregiver { get; set; }
-            [Display(Name = "Address")]
+            [Display(Name = "Endereço")]
             public string Address { get; set; }
         }
 
@@ -229,7 +229,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
             }
             else
             {
-                StatusMessage = "Your profile has been updated";
+                StatusMessage = "Perfil Atualizado.";
             }
             return RedirectToPage();
         }
