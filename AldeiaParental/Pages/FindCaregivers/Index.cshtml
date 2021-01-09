@@ -21,9 +21,9 @@
                 </select>
                 Local de Atendimento:
                 <select name="atHome" class="form-control">
-                    <option value="null" selected="@(Model.AtHome == null ? true : false)">Wherever</option>
-                    <option value="true" selected="@(Model.AtHome != null ? ((bool)Model.AtHome?true:false) : false)">My Home</option>
-                    <option value="false"selected="@(Model.AtHome != null ? ((bool)Model.AtHome?false:true) : false)">Not at my Home</option>
+                    <option value="null" selected="@(Model.AtHome == null ? true : false)">Indiferente</option>
+                    <option value="true" selected="@(Model.AtHome != null ? ((bool)Model.AtHome?true:false) : false)">Na minha casa</option>
+                    <option value="false"selected="@(Model.AtHome != null ? ((bool)Model.AtHome?false:true) : false)">Em outro local</option>
                 </select>
                 <input type="submit" value="Search" class="btn btn-primary" /> |
                 <a asp-page="./Index">Listar sem filtros</a>
