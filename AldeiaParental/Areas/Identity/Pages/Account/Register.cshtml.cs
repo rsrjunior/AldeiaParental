@@ -51,35 +51,35 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [StringLength(30, ErrorMessage = "The {0} must have max {1} characters long.")]
-            [Display(Name = "First name")]
+            [Required(ErrorMessage = "{0} Obrigatório.")]
+            [StringLength(30, ErrorMessage = "{0} deve conter no máximo {1} caracteres.")]
+            [Display(Name = "Nome")]
             public string FirstName { get; set; }
 
-            [Required]
-            [StringLength(70, ErrorMessage = "The {0} must have max {1} characters long.")]
-            [Display(Name = "Last name")]
+            [Required(ErrorMessage = "{0} Obrigatório.")]
+            [StringLength(70, ErrorMessage = "{0} deve conter no máximo {1} caracteres.")]
+            [Display(Name = "Sobrenome")]
             public string LastName { get; set; }
 
-            [Display(Name = "Customer")]
+            [Display(Name = "Cliente")]
             public bool Customer { get; set; }
-            [Display(Name = "Caregiver")]
+            [Display(Name = "Cuidador")]
             public bool Caregiver { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "{0} Obrigatório.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "{0} Obrigatório.")]
+            [StringLength(100, ErrorMessage = "A {0} deve conter entre {2} e {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirme a senha")]
+            [Compare("Password", ErrorMessage = "A confirmação e a senha não conferem.")]
             public string ConfirmPassword { get; set; }
         }
 
