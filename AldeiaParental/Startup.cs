@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AldeiaParental.Models;
+using AldeiaParental.Areas.Identity;
 
 namespace AldeiaParental
 {
@@ -36,7 +37,8 @@ namespace AldeiaParental
             services.AddIdentity<AldeiaParentalUser, AldeiaParentalRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddErrorDescriber<CustomIdentityErrorDescriber>();;
 
             services.AddAuthorization(options => {
                 options.AddPolicy("AdministradorPolicy",
