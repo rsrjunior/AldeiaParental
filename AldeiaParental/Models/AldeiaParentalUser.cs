@@ -27,5 +27,7 @@ namespace AldeiaParental.Models
 
         public List<ServiceLocation> ServiceLocations { get; set; }
 
+        public List<PersonalDocument> PersonalDocuments { get; set; }
+
     }
 }
