@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AldeiaParental.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210111134144_AddPersonalDocument")]
+    [Migration("20210111175654_AddPersonalDocument")]
     partial class AddPersonalDocument
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

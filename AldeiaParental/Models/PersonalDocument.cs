@@ -11,8 +11,8 @@ namespace AldeiaParental.Models
         public string DocumentNumber { get; set; }
         public string FilePath { get; set; }
         public bool? Valid { get; set; }
-        [Required]
         public AldeiaParentalUser User { get; set; }
+        [Required]
         public string UserId { get; set; }
     }
 }
