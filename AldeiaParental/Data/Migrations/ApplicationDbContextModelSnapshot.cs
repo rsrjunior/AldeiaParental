@@ -137,24 +137,27 @@ namespace AldeiaParental.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AldeiaParentalUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("DocumentNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DocumentType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool?>("Valid")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AldeiaParentalUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("PersonalDocument");
                 });
@@ -315,9 +318,11 @@ namespace AldeiaParental.Data.Migrations
 
             modelBuilder.Entity("AldeiaParental.Models.PersonalDocument", b =>
                 {
-                    b.HasOne("AldeiaParental.Models.AldeiaParentalUser", null)
+                    b.HasOne("AldeiaParental.Models.AldeiaParentalUser", "User")
                         .WithMany("PersonalDocuments")
-                        .HasForeignKey("AldeiaParentalUserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AldeiaParental.Models.ServiceLocation", b =>
