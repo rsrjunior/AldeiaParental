@@ -11,21 +11,21 @@ using Microsoft.Extensions.Logging;
 
 namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+    public partial class ProfileModel : PageModel
     {
         private readonly UserManager<AldeiaParentalUser> _userManager;
         private readonly SignInManager<AldeiaParentalUser> _signInManager;
         private readonly RoleManager<AldeiaParentalRole> _roleManager;
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<ProfileModel> _logger;
 
         private const string _customerRole = "Cliente";
         private const string _caregiverRole = "Cuidador";
 
-        public IndexModel(
+        public ProfileModel(
             UserManager<AldeiaParentalUser> userManager,
             RoleManager<AldeiaParentalRole> roleManager,
             SignInManager<AldeiaParentalUser> signInManager,
-            ILogger<IndexModel> logger)
+            ILogger<ProfileModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;

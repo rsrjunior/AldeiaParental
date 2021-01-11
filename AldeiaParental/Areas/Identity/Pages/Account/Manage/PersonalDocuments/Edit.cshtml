@@ -1,0 +1,47 @@
+@page
+@model AldeiaParental.Areas_Identity_Pages_Account_Manage_PersonalDocuments.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PersonalDocument</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PersonalDocument.Id" />
+            <div class="form-group">
+                <label asp-for="PersonalDocument.DocumentType" class="control-label"></label>
+                <input asp-for="PersonalDocument.DocumentType" class="form-control" />
+                <span asp-validation-for="PersonalDocument.DocumentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.DocumentNumber" class="control-label"></label>
+                <input asp-for="PersonalDocument.DocumentNumber" class="form-control" />
+                <span asp-validation-for="PersonalDocument.DocumentNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.FilePath" class="control-label"></label>
+                <input asp-for="PersonalDocument.FilePath" class="form-control" />
+                <span asp-validation-for="PersonalDocument.FilePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.Valid" class="control-label"></label>
+                <input asp-for="PersonalDocument.Valid" class="form-control" />
+                <span asp-validation-for="PersonalDocument.Valid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

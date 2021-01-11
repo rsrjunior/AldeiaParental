@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,25 +8,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
-using Microsoft.AspNetCore.Identity;
 
-namespace AldeiaParental.Pages.ServiceLocations
+namespace AldeiaParental.Pages_PersonalDocuments
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<AldeiaParentalUser> _userManager;
+        private readonly AldeiaParental.Data.ApplicationDbContext _context;
 
-
-        public EditModel(ApplicationDbContext context,
-            UserManager<AldeiaParentalUser> userManager)
+        public EditModel(AldeiaParental.Data.ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         [BindProperty]
-        public ServiceLocation ServiceLocation { get; set; }
+        public PersonalDocument PersonalDocument { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,18 +30,14 @@ namespace AldeiaParental.Pages.ServiceLocations
                 return NotFound();
             }
 
-            ServiceLocation = await _context.ServiceLocation
-                .Where(s => s.UserId == _userManager.GetUserId(User))
-                .Include(s => s.Region)
-                .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
+            PersonalDocument = await _context.PersonalDocument
+                .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (ServiceLocation == null)
+            if (PersonalDocument == null)
             {
                 return NotFound();
             }
-
-            ViewData["Region"] = new SelectList(_context.Region, "Id", "Name");
-
+           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -54,15 +45,12 @@ namespace AldeiaParental.Pages.ServiceLocations
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //ensure that only updates on current auth user
-            ServiceLocation.UserId = _userManager.GetUserId(User);
-            this.ModelState.Clear();
-            if (!TryValidateModel(ServiceLocation))
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(ServiceLocation).State = EntityState.Modified;
+            _context.Attach(PersonalDocument).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +58,7 @@ namespace AldeiaParental.Pages.ServiceLocations
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceLocationExists(ServiceLocation.Id))
+                if (!PersonalDocumentExists(PersonalDocument.Id))
                 {
                     return NotFound();
                 }
@@ -83,9 +71,9 @@ namespace AldeiaParental.Pages.ServiceLocations
             return RedirectToPage("./Index");
         }
 
-        private bool ServiceLocationExists(int id)
+        private bool PersonalDocumentExists(int id)
         {
-            return _context.ServiceLocation.Any(e => e.Id == id);
+            return _context.PersonalDocument.Any(e => e.Id == id);
         }
     }
 }
