@@ -15,7 +15,7 @@ namespace AldeiaParental.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CaregiverId = table.Column<string>(nullable: true),
                     CustomerId = table.Column<string>(nullable: true),
-                    Rate = table.Column<int>(nullable: false),
+                    Rate = table.Column<int>(nullable: true),
                     CaregiverComments = table.Column<string>(nullable: true),
                     CustomerComments = table.Column<string>(nullable: true),
                     datetime = table.Column<DateTime>(nullable: false)

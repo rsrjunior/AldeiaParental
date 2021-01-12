@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AldeiaParental.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210112190031_AddService")]
+    [Migration("20210112195109_AddService")]
     partial class AddService
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -201,7 +201,7 @@ namespace AldeiaParental.Data.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Rate")
+                    b.Property<int?>("Rate")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("datetime")
