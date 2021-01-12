@@ -56,6 +56,7 @@ namespace AldeiaParental
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Regions", "AdministradorPolicy");
+                options.Conventions.AuthorizeFolder("/CheckDocuments", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/ServiceLocations", "CuidadorPolicy");
                 options.Conventions.AuthorizeFolder("/FindCaregivers", "ClientePolicy");
             });

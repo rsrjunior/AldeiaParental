@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 
-namespace AldeiaParental.Pages_PersonalDocuments
+namespace AldeiaParental.Pages_CheckDocuments
 {
     public class EditModel : PageModel
     {
@@ -31,13 +31,13 @@ namespace AldeiaParental.Pages_PersonalDocuments
             }
 
             PersonalDocument = await _context.PersonalDocument
-                .Include(p => p.User).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (PersonalDocument == null)
             {
                 return NotFound();
             }
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 

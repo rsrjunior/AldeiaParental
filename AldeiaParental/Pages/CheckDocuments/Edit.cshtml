@@ -1,0 +1,56 @@
+@page
+@model AldeiaParental.Pages_CheckDocuments.EditModel
+
+@{
+    ViewData["Title"] = "Verificar Documento";
+}
+
+<h1>Verificar</h1>
+
+<h4>Documento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="PersonalDocument.User.FirstName" class="control-label"></label>
+            <input asp-for="PersonalDocument.User.FirstName" class="form-control" readonly="true" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalDocument.User.LastName" class="control-label"></label>
+            <input asp-for="PersonalDocument.User.LastName" class="form-control" readonly="true" />
+        </div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PersonalDocument.Id" />
+            <input type="hidden" asp-for="PersonalDocument.UserId">
+            <div class="form-group">
+                <label asp-for="PersonalDocument.DocumentType" class="control-label"></label>
+                <input asp-for="PersonalDocument.DocumentType" class="form-control" readonly="true" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.DocumentNumber" class="control-label"></label>
+                <input asp-for="PersonalDocument.DocumentNumber" class="form-control" readonly="true" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.FilePath" class="control-label"></label>
+                <input asp-for="PersonalDocument.FilePath" class="form-control" readonly="true" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalDocument.Valid" class="control-label"></label>
+                <select asp-for="PersonalDocument.Valid" class="form-control">
+                    <option value="">Indefinido</option>
+                    <option value="true">Válido</option>
+                    <option value="false">Inválido</option>
+                </select>
+                <span asp-validation-for="PersonalDocument.Valid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Verificar Documentos</a>
+</div>

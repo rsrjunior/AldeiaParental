@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 
-namespace AldeiaParental.Pages_PersonalDocuments
+namespace AldeiaParental.Pages_CheckDocuments
 {
     public class IndexModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace AldeiaParental.Pages_PersonalDocuments
             _context = context;
         }
 
-        public IList<PersonalDocument> PersonalDocument { get;set; }
+        public IList<PersonalDocument> PersonalDocument { get; set; }
 
         public async Task OnGetAsync()
         {
