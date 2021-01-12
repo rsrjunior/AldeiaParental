@@ -58,7 +58,9 @@ namespace AldeiaParental
                 options.Conventions.AuthorizeFolder("/Regions", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/CheckDocuments", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/ServiceLocations", "CuidadorPolicy");
+                options.Conventions.AuthorizeFolder("/CaregiverServices", "CuidadorPolicy");
                 options.Conventions.AuthorizeFolder("/FindCaregivers", "ClientePolicy");
+                options.Conventions.AuthorizeFolder("/CustomerServices", "ClientePolicy");
             });
         }
 

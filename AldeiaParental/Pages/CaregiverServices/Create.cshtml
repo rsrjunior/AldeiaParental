@@ -1,0 +1,54 @@
+@page
+@model AldeiaParental.Pages_CaregiverServices.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Service.CaregiverId" class="control-label"></label>
+                <select asp-for="Service.CaregiverId" class ="form-control" asp-items="ViewBag.CaregiverId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Service.CustomerId" class="control-label"></label>
+                <select asp-for="Service.CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Service.Rate" class="control-label"></label>
+                <input asp-for="Service.Rate" class="form-control" />
+                <span asp-validation-for="Service.Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Service.CaregiverComments" class="control-label"></label>
+                <input asp-for="Service.CaregiverComments" class="form-control" />
+                <span asp-validation-for="Service.CaregiverComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Service.CustomerComments" class="control-label"></label>
+                <input asp-for="Service.CustomerComments" class="form-control" />
+                <span asp-validation-for="Service.CustomerComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Service.datetime" class="control-label"></label>
+                <input asp-for="Service.datetime" class="form-control" />
+                <span asp-validation-for="Service.datetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+

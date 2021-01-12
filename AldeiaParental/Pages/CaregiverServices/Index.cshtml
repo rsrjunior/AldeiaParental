@@ -1,0 +1,66 @@
+@page
+@model AldeiaParental.Pages_CaregiverServices.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Caregiver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].CaregiverComments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].CustomerComments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].datetime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Service) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caregiver.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaregiverComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

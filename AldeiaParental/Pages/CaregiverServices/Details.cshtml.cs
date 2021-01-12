@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,21 +9,21 @@ using AldeiaParental.Data;
 using AldeiaParental.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace AldeiaParental.Pages.ServiceLocations
+namespace AldeiaParental.Pages_CaregiverServices
 {
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AldeiaParental.Data.ApplicationDbContext _context;
         private readonly UserManager<AldeiaParentalUser> _userManager;
 
-        public DetailsModel(ApplicationDbContext context,
+        public DetailsModel(AldeiaParental.Data.ApplicationDbContext context,
             UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public ServiceLocation ServiceLocation { get; set; }
+        public Service Service { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,12 +32,12 @@ namespace AldeiaParental.Pages.ServiceLocations
                 return NotFound();
             }
 
-            ServiceLocation = await _context.ServiceLocation
-                .Where(s=>s.UserId ==_userManager.GetUserId(User))
-                .Include(s => s.Region)
-                .Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
+            Service = await _context.Service     
+                .Where(s=>s.CaregiverId ==_userManager.GetUserId(User))
+                .Include(s => s.Caregiver)
+                .Include(s => s.Customer).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (ServiceLocation == null)
+            if (Service == null)
             {
                 return NotFound();
             }
