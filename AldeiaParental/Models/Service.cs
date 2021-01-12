@@ -10,7 +10,7 @@ namespace AldeiaParental.Models
         public string CaregiverId { get; set; }
         public AldeiaParentalUser Customer { get; set; }
         public string CustomerId { get; set; }
-        public int Rate { get; set; }
+        public int? Rate { get; set; }
         public string CaregiverComments { get; set; }
         public string CustomerComments { get; set; }
         [Required]
