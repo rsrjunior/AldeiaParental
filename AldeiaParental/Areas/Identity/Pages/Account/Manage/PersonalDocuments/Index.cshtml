@@ -2,13 +2,13 @@
 @model AldeiaParental.Areas_Identity_Pages_Account_Manage_PersonalDocuments.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listar Documentos";
 }
 
-<h1>Index</h1>
+<h1>Documentos</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Novo Documento</a>
 </p>
 <table class="table">
     <thead>
@@ -50,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalhar</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>
             </td>
         </tr>
 }
