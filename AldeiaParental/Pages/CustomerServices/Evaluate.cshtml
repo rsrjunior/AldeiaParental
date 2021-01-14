@@ -22,7 +22,7 @@
             <input type="hidden" asp-for="Service.CaregiverId" />
             <div class="form-group">
                 <label asp-for="Service.Rate" class="control-label"></label>
-                <input asp-for="Service.Rate" class="form-control" />
+                <input asp-for="Service.Rate" class="form-control" min=1 max=5 value=5/>
                 <span asp-validation-for="Service.Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
