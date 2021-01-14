@@ -29,5 +29,7 @@ namespace AldeiaParental.Models
 
         public List<PersonalDocument> PersonalDocuments { get; set; }
 
+        public DateTime? RegistrationDate { get; set; }
+
     }
 }
