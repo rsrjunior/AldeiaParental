@@ -2,48 +2,49 @@
 @model AldeiaParental.Pages_CaregiverServices.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Excluir";
+    bool readOnly = Model.Service.Rate!=null?true:false;
 }
 
-<h1>Delete</h1>
+<h1>Excluir</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza?</h3>
 <div>
-    <h4>Service</h4>
+    <h4>Atendimento</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.Caregiver)
+            Nome Cliente
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Service.Caregiver.Id)
-        </dd>
+            @Html.DisplayFor(model => model.Service.Customer.FirstName)
+        </dd>  
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.Customer)
+            Email Cliente
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Service.Customer.Id)
+            @Html.DisplayFor(model => model.Service.Customer.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.Rate)
+            Avaliação
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Service.Rate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.CaregiverComments)
+            Meu Comentário
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Service.CaregiverComments)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.CustomerComments)
+            Comentário Cliente
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Service.CustomerComments)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Service.datetime)
+            Data
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Service.datetime)
@@ -52,7 +53,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Service.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Excluir" class="btn btn-danger" readonly=@readOnly/> |
+        <a asp-page="./Index">Meus Atendimentos</a>
     </form>
 </div>

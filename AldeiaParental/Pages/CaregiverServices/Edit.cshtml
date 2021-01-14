@@ -15,7 +15,7 @@
           @if (readOnly)
             {
                 <div class="form-group">
-                    <label asp-for="Service.Customer" class="control-label"></label>
+                    <label asp-for="Service.Customer" class="control-label">Cliente</label>
                     <input asp-for="Service.Customer.Email" class ="form-control" readonly=true>
                 </div>
             }
@@ -26,7 +26,7 @@
             @if (!readOnly)
             {
                 <div class="form-group">
-                    <label asp-for="Service.Customer" class="control-label"></label>
+                    <label asp-for="Service.Customer" class="control-label">Cliente</label>
                     <select asp-for="Service.CustomerId" class ="form-control" asp-items="ViewBag.Customer"></select>
                 </div>
             }else
@@ -34,22 +34,22 @@
                 <input type="hidden" asp-for="Service.CustomerId" />
             }
             <div class="form-group">
-                <label asp-for="Service.Rate" class="control-label"></label>
+                <label asp-for="Service.Rate" class="control-label">Avaliação</label>
                 <input asp-for="Service.Rate" class="form-control" readonly=true/>
                 <span asp-validation-for="Service.Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.CaregiverComments" class="control-label"></label>
+                <label asp-for="Service.CaregiverComments" class="control-label">Meu Comentário</label>
                 <input asp-for="Service.CaregiverComments" class="form-control" readonly=@readOnly />
                 <span asp-validation-for="Service.CaregiverComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.CustomerComments" class="control-label"></label>
+                <label asp-for="Service.CustomerComments" class="control-label">Comentário do Cliente</label>
                 <input asp-for="Service.CustomerComments" class="form-control" readonly="true"/>
                 <span asp-validation-for="Service.CustomerComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.datetime" class="control-label"></label>
+                <label asp-for="Service.datetime" class="control-label">Data</label>
                 <input asp-for="Service.datetime" class="form-control"  readonly=@readOnly />
                 <span asp-validation-for="Service.datetime" class="text-danger"></span>
             </div>

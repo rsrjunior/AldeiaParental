@@ -56,7 +56,8 @@ namespace AldeiaParental.Pages_CaregiverServices
 
             if (Service != null)
             {
-                if (Service.CaregiverId ==_userManager.GetUserId(User))
+                if (Service.CaregiverId ==_userManager.GetUserId(User)&&
+                    Service.Rate==null)
                 {
                     _context.Service.Remove(Service);
                     await _context.SaveChangesAsync();

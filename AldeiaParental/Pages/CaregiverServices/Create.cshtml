@@ -14,21 +14,21 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Service.Customer" class="control-label"></label>
+                <label asp-for="Service.Customer" class="control-label">Cliente</label>
                 <select asp-for="Service.CustomerId" class ="form-control" asp-items="ViewBag.Customer"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Service.CaregiverComments" class="control-label"></label>
+                <label asp-for="Service.CaregiverComments" class="control-label">Comentário</label>
                 <input asp-for="Service.CaregiverComments" class="form-control" />
                 <span asp-validation-for="Service.CaregiverComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.datetime" class="control-label"></label>
+                <label asp-for="Service.datetime" class="control-label">Data</label>
                 <input asp-for="Service.datetime" class="form-control" />
                 <span asp-validation-for="Service.datetime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>

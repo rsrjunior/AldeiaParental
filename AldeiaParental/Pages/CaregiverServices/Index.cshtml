@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Meus Atendimentos";
+    bool disable = true;
 }
 
 <h1>Meus Atendimentos</h1>
@@ -14,22 +15,23 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].Customer.FirstName)
+                Cliente
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Service[0].Customer.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].Rate)
+                Avaliação
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].datetime)
+                Data
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Service) {
+    disable = item.Rate==null?false:true;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.FirstName)
@@ -43,9 +45,15 @@
                 @Html.DisplayFor(modelItem => item.datetime)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                @if (disable)
+                {<span>Editar</span>}
+                else
+                {<a asp-page="./Edit" asp-route-id="@item.Id">Editar</a>} |
                 <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>
+                 @if (disable)
+                {<span>Excluir</span>}
+                else
+                {<a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>}
             </td>
         </tr>
 }
