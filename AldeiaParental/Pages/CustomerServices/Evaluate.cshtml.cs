@@ -21,6 +21,7 @@ namespace AldeiaParental.Pages_CustomerServices
             UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -36,14 +37,12 @@ namespace AldeiaParental.Pages_CustomerServices
             Service = await _context.Service
                 .Where(s => s.CustomerId == _userManager.GetUserId(User))
                 .Include(s => s.Caregiver)
-                .Include(s => s.Customer).FirstOrDefaultAsync(m => m.Id == id);
-
+                .Include(s => s.Customer).FirstOrDefaultAsync(s => s.Id == id);
+            
             if (Service == null)
             {
                 return NotFound();
             }
-           ViewData["CaregiverId"] = new SelectList(_context.Users, "Id", "Id");
-           ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -51,10 +50,12 @@ namespace AldeiaParental.Pages_CustomerServices
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //ensure that only updates on current auth user
-            Service.CustomerId = _userManager.GetUserId(User);
-            this.ModelState.Clear();
-            if (!TryValidateModel(Service))
+            //ensure that only updates on current auth user and the users for this service
+            Service tmp = _context.Service.AsNoTracking().FirstOrDefault(s => s.Id == Service.Id);
+            if (!(ModelState.IsValid &&
+                tmp.CustomerId == Service.CustomerId &&
+                Service.CustomerId == _userManager.GetUserId(User) &&
+                tmp.CaregiverId == Service.CaregiverId))
             {
                 return Page();
             }

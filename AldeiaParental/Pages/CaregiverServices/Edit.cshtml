@@ -3,55 +3,64 @@
 
 @{
     ViewData["Title"] = "Edit";
+    bool readOnly = Model.Service.Rate!=null?true:false;
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Service</h4>
+<h4>Atendimento</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
+          @if (readOnly)
+            {
+                <div class="form-group">
+                    <label asp-for="Service.Customer" class="control-label"></label>
+                    <input asp-for="Service.Customer.Email" class ="form-control" readonly=true>
+                </div>
+            }
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Service.Id" />
-            <div class="form-group">
-                <label asp-for="Service.CaregiverId" class="control-label"></label>
-                <select asp-for="Service.CaregiverId" class="form-control" asp-items="ViewBag.CaregiverId"></select>
-                <span asp-validation-for="Service.CaregiverId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Service.CustomerId" class="control-label"></label>
-                <select asp-for="Service.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-                <span asp-validation-for="Service.CustomerId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Service.CaregiverId" />
+            @if (!readOnly)
+            {
+                <div class="form-group">
+                    <label asp-for="Service.Customer" class="control-label"></label>
+                    <select asp-for="Service.CustomerId" class ="form-control" asp-items="ViewBag.Customer"></select>
+                </div>
+            }else
+            {
+                <input type="hidden" asp-for="Service.CustomerId" />
+            }
             <div class="form-group">
                 <label asp-for="Service.Rate" class="control-label"></label>
-                <input asp-for="Service.Rate" class="form-control" />
+                <input asp-for="Service.Rate" class="form-control" readonly=true/>
                 <span asp-validation-for="Service.Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Service.CaregiverComments" class="control-label"></label>
-                <input asp-for="Service.CaregiverComments" class="form-control" />
+                <input asp-for="Service.CaregiverComments" class="form-control" readonly=@readOnly />
                 <span asp-validation-for="Service.CaregiverComments" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Service.CustomerComments" class="control-label"></label>
-                <input asp-for="Service.CustomerComments" class="form-control" />
+                <input asp-for="Service.CustomerComments" class="form-control" readonly="true"/>
                 <span asp-validation-for="Service.CustomerComments" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Service.datetime" class="control-label"></label>
-                <input asp-for="Service.datetime" class="form-control" />
+                <input asp-for="Service.datetime" class="form-control"  readonly=@readOnly />
                 <span asp-validation-for="Service.datetime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" disabled=@readOnly/>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Meus Atendimentos</a>
 </div>
 

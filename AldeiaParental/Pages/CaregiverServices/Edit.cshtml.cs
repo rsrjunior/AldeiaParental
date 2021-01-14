@@ -43,8 +43,7 @@ namespace AldeiaParental.Pages_CaregiverServices
             {
                 return NotFound();
             }
-           ViewData["CaregiverId"] = new SelectList(_context.Users, "Id", "Id");
-           ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["Customer"] = new SelectList(_context.Users, "Id", "Email");
             return Page();
         }
 
@@ -52,10 +51,13 @@ namespace AldeiaParental.Pages_CaregiverServices
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //ensure that only updates on current auth user
-            Service.CaregiverId = _userManager.GetUserId(User);
-            this.ModelState.Clear();
-            if (!TryValidateModel(Service))
+            //ensure that only updates on current auth user and the users for this service
+            Service tmp = _context.Service.AsNoTracking().FirstOrDefault(s => s.Id == Service.Id);
+            if (!(ModelState.IsValid &&
+                tmp.CaregiverId == Service.CaregiverId&&
+                Service.CaregiverId == _userManager.GetUserId(User) &&
+                Nullable.Compare<int>(Service.Rate,tmp.Rate)== 0 &&
+                String.Equals(tmp.CustomerComments,Service.CustomerComments)))
             {
                 return Page();
             }

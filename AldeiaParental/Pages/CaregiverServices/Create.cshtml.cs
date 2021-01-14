@@ -25,8 +25,7 @@ namespace AldeiaParental.Pages_CaregiverServices
 
         public IActionResult OnGet()
         {
-        ViewData["CaregiverId"] = new SelectList(_context.Users, "Id", "Id");
-        ViewData["CustomerId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["Customer"] = new SelectList(_context.Users, "Id", "Email");
             return Page();
         }
 
