@@ -11,19 +11,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PersonalDocument[0].DocumentType)
+                Tipo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PersonalDocument[0].DocumentNumber)
+                Número
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PersonalDocument[0].FilePath)
+                Arquivo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PersonalDocument[0].Valid)
+                Verificação
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PersonalDocument[0].User)
+                Usuário
             </th>
             <th></th>
         </tr>
@@ -42,7 +42,7 @@
                     @Html.DisplayFor(modelItem => item.FilePath)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Valid)
+                    @(item.Valid==null?"Indefinido":item.Valid==true?"Válido":"Inválido")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.User.Email)

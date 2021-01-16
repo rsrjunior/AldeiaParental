@@ -12,11 +12,11 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <label asp-for="PersonalDocument.User.FirstName" class="control-label"></label>
+            <label asp-for="PersonalDocument.User.FirstName" class="control-label">Nome</label>
             <input asp-for="PersonalDocument.User.FirstName" class="form-control" readonly="true" />
         </div>
         <div class="form-group">
-            <label asp-for="PersonalDocument.User.LastName" class="control-label"></label>
+            <label asp-for="PersonalDocument.User.LastName" class="control-label">Sobrenome</label>
             <input asp-for="PersonalDocument.User.LastName" class="form-control" readonly="true" />
         </div>
         <form method="post">
@@ -24,19 +24,19 @@
             <input type="hidden" asp-for="PersonalDocument.Id" />
             <input type="hidden" asp-for="PersonalDocument.UserId">
             <div class="form-group">
-                <label asp-for="PersonalDocument.DocumentType" class="control-label"></label>
+                <label asp-for="PersonalDocument.DocumentType" class="control-label">Tipo</label>
                 <input asp-for="PersonalDocument.DocumentType" class="form-control" readonly="true" />
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.DocumentNumber" class="control-label"></label>
+                <label asp-for="PersonalDocument.DocumentNumber" class="control-label">Número</label>
                 <input asp-for="PersonalDocument.DocumentNumber" class="form-control" readonly="true" />
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.FilePath" class="control-label"></label>
+                <label asp-for="PersonalDocument.FilePath" class="control-label">Arquivo</label>
                 <input asp-for="PersonalDocument.FilePath" class="form-control" readonly="true" />
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.Valid" class="control-label"></label>
+                <label asp-for="PersonalDocument.Valid" class="control-label">Verificação</label>
                 <select asp-for="PersonalDocument.Valid" class="form-control">
                     <option value="">Indefinido</option>
                     <option value="true">Válido</option>
