@@ -29,11 +29,11 @@ namespace AldeiaParental.Pages.Regions
         public async Task<IActionResult> OnGetCsv()
         {
             var builder = new StringBuilder();
-            builder.AppendLine("Nome,Descrição");
+            builder.AppendLine("Id,Nome,Descrição");
             List<Region> _regions = await _context.Region.ToListAsync<Region>();
             foreach (var region in _regions)
             {
-                builder.AppendLine($"{region.Name},{region.Description}");
+                builder.AppendLine($"{region.Id},{region.Name},{region.Description}");
             }
 
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "regions.csv");

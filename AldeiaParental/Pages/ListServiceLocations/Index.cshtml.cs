@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using System.Text;
 
 namespace AldeiaParental.Pages_ListServiceLocations
 {
@@ -26,6 +27,18 @@ namespace AldeiaParental.Pages_ListServiceLocations
             ServiceLocation = await _context.ServiceLocation
                 .Include(s => s.Region)
                 .Include(s => s.User).ToListAsync();
+        }
+        public async Task<IActionResult> OnGetCsv()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("CuidadorId, RegionId, Descrição");
+            List<ServiceLocation> _serviceLocations = await _context.ServiceLocation.ToListAsync<ServiceLocation>();
+            foreach (var location in _serviceLocations)
+            {
+                builder.AppendLine($"{location.UserId},{location.RegionId},{(location.AtCustomerHome?"(à domicílio)":location.Description)}");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "servicelocations.csv");
         }
     }
 }
