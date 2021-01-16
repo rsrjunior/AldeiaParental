@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Region.Id" />
             <div class="form-group">
-                <label asp-for="Region.Name" class="control-label"></label>
+                <label asp-for="Region.Name" class="control-label">Nome</label>
                 <input asp-for="Region.Name" class="form-control" />
                 <span asp-validation-for="Region.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Region.Description" class="control-label"></label>
+                <label asp-for="Region.Description" class="control-label">Descrição</label>
                 <input asp-for="Region.Description" class="form-control" />
                 <span asp-validation-for="Region.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>

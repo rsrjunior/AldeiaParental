@@ -2,24 +2,24 @@
 @model AldeiaParental.Pages.Regions.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Excluir";
 }
 
-<h1>Delete</h1>
+<h1>Excluir</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza?</h3>
 <div>
-    <h4>Region</h4>
+    <h4>Região</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Region.Name)
+            Nome
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Region.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Region.Description)
+            Descrição
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Region.Description)
@@ -28,7 +28,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="Region.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index">Listar Regiões</a>
     </form>
 </div>
