@@ -2,7 +2,7 @@
 @model AldeiaParental.Pages_Users.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Usuários";
 }
 
 <h1>Index</h1>
@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.LockoutEnd)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Gerenciar</a>
+                <a asp-page="./Manage" asp-route-id="@item.Id">Gerenciar</a>
             </td>
         </tr>
 }

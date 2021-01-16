@@ -1,0 +1,61 @@
+@page
+@model AldeiaParental.Pages_Users.ManageModel
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Gerenciar</h1>
+
+<h4>Usuário</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.FirstName" class="control-label">Nome</label>
+                <input asp-for="AldeiaParentalUser.FirstName" class="form-control" readonly=true/>
+            </div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.LastName" class="control-label">Sobrenome</label>
+                <input asp-for="AldeiaParentalUser.LastName" class="form-control" readonly=true />
+            </div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.Email" class="control-label"></label>
+                <input asp-for="AldeiaParentalUser.Email" class="form-control" readonly=true/>
+            </div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.Address" class="control-label">Endereço</label>
+                <input asp-for="AldeiaParentalUser.Address" class="form-control" readonly=true />
+            </div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.RegistrationDate" class="control-label">Data Cadastro</label>
+                <input asp-for="AldeiaParentalUser.RegistrationDate" class="form-control" readonly=true/>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="AldeiaParentalUser.EmailConfirmed" readonly=true/> Email Confirmado
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AldeiaParentalUser.PhoneNumber" class="control-label">Telefone</label>
+                <input asp-for="AldeiaParentalUser.PhoneNumber" class="form-control" readonly=true />
+            </div>
+       <form method="post">
+            <input type="hidden" asp-for="AldeiaParentalUser.Id" />
+            <div class="form-group">
+                <label asp-for="LockoutEnd" class="control-label"></label>
+                <input asp-for="LockoutEnd" class="form-control" />
+                <span asp-validation-for="AldeiaParentalUser.LockoutEnd" class="text-danger"></span>
+            </div>      
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Listar Usuários</a>
+</div>
+
