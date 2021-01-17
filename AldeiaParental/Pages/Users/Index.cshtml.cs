@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AldeiaParental.Data;
 using AldeiaParental.Models;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
@@ -19,10 +18,10 @@ namespace AldeiaParental.Pages_Users
         private readonly UserManager<AldeiaParentalUser> _userManager;
 
         public IndexModel(AldeiaParental.Data.ApplicationDbContext context,
-        UserManager<AldeiaParentalUser> roleManager)
+        UserManager<AldeiaParentalUser> userManager)
         {
             _context = context;
-            _userManager = roleManager;
+            _userManager = userManager;
         }
 
         public IList<UserViewModel> Users { get;set; }
