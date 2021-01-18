@@ -1,5 +1,5 @@
 @page
-@model AldeiaParental.Pages_Users.StatsModel
+@model AldeiaParental.Pages_Services.StatsModel
 @section Styles {
     <link href="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css")" rel="stylesheet" type="text/css" />
 }
@@ -10,9 +10,9 @@
     document.addEventListener('DOMContentLoaded', (event) => {
 
         var ctx1 = document.getElementById('myChart1');
-        var myChart1 = new Chart(ctx1, @Html.Raw(Model.UsersProfileChartJson) );
+        var myChart1 = new Chart(ctx1, @Html.Raw(Model.ServicesCountChartJson) );
         var ctx2 = document.getElementById('myChart2');
-        var myChart2 = new Chart(ctx2, @Html.Raw(Model.MonthUsersChartJson) );
+        var myChart2 = new Chart(ctx2, @Html.Raw(Model.ServicesAvgChartJson) );
 
     });
     </script>
@@ -25,5 +25,5 @@
     <canvas id="myChart2"></canvas>
 </div>
 <div>
-    <a asp-page="./Index">Listar Usuários</a>
+    <a asp-page="./Index">Listar Atendimentos</a>
 </div>
