@@ -1,0 +1,49 @@
+﻿@page
+@model AldeiaParental.Pages_ListServiceLocations.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Local de Atendimento</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Cuidador
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceLocation.User.Email) 
+        </dd>
+        <dt class="col-sm-2">
+            Descrição
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceLocation.Description)
+        </dd>
+        <dt class="col-sm-2">
+            Endereço
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceLocation.Address)
+        </dd>
+        <dt class="col-sm-2">
+            À domicílio
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceLocation.AtCustomerHome)
+        </dd>
+        <dt class="col-sm-2">
+            Região
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceLocation.Region.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Index">Listar Locais</a>
+</div>
+    
