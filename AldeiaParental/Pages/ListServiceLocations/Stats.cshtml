@@ -1,0 +1,24 @@
+@page
+@model AldeiaParental.Pages_ListServiceLocations.StatsModel
+@section Styles {
+    <link href="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css")" rel="stylesheet" type="text/css" />
+}
+@section Scripts
+{
+    <script type="text/javascript" src="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js")"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        var ctx1 = document.getElementById('myChart1');
+        var myChart1 = new Chart(ctx1, @Html.Raw(Model.CaregiverRegionChartJson) );
+
+    });
+    </script>
+}
+
+<div class="chart-container" width="600" height="400">
+    <canvas id="myChart1"></canvas>
+</div>
+<div>
+    <a asp-page="./Index">Locais de Atendimento</a>
+</div>
