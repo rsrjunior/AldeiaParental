@@ -1,17 +1,16 @@
 ﻿@page
 @model ExternalLoginModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Cadastro";
 }
 
 <h1>@ViewData["Title"]</h1>
-<h4 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h4>
+<h4 id="external-login-title">Associar sua conta @Model.ProviderDisplayName.</h4>
 <hr />
 
 <p id="external-login-description" class="text-info">
-    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-    Please enter an email address for this site below and click the Register button to finish
-    logging in.
+    Você efetuou login com <strong>@Model.ProviderDisplayName</strong>.
+    Por favor, complete os seguintes dados e associe sua conta para usar nossos serviços.
 </p>
 
 <div class="row">
@@ -23,7 +22,28 @@
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="Input.Customer" type="checkbox" class="form-check-input" />
+                    <label asp-for="Input.Customer" class="form-check-label"></label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="Input.Caregiver" type="checkbox" class="form-check-input" />
+                    <label asp-for="Input.Caregiver" class="form-check-label"></label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </div>
 </div>

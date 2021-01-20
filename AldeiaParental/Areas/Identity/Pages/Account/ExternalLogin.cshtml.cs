@@ -22,12 +22,15 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<AldeiaParentalUser> _signInManager;
         private readonly UserManager<AldeiaParentalUser> _userManager;
+        private readonly RoleManager<AldeiaParentalRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
-
+        private const string _customerRole = "Cliente";
+        private const string _caregiverRole = "Cuidador";
         public ExternalLoginModel(
             SignInManager<AldeiaParentalUser> signInManager,
             UserManager<AldeiaParentalUser> userManager,
+            RoleManager<AldeiaParentalRole> roleManager,
             ILogger<ExternalLoginModel> logger,
             IEmailSender emailSender)
         {
@@ -35,6 +38,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -49,9 +53,26 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "{0} Obrigatório.")]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
+            [Required(ErrorMessage = "{0} Obrigatório.")]
+            [StringLength(30, ErrorMessage = "{0} deve conter no máximo {1} caracteres.")]
+            [Display(Name = "Nome")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "{0} Obrigatório.")]
+            [StringLength(70, ErrorMessage = "{0} deve conter no máximo {1} caracteres.")]
+            [Display(Name = "Sobrenome")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Cliente")]
+            public bool Customer { get; set; }
+            [Display(Name = "Cuidador")]
+            public bool Caregiver { get; set; }
+
+           
         }
 
         public IActionResult OnGetAsync()
@@ -102,7 +123,9 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FirstName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)
                     };
                 }
                 return Page();
@@ -122,7 +145,12 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new AldeiaParentalUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AldeiaParentalUser { 
+                    UserName = Input.Email,
+                    Email = Input.Email, 
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    RegistrationDate = DateTime.UtcNow };
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -131,6 +159,53 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+
+                        #region set roles
+                        if (Input.Customer)
+                        {
+
+                            bool customerRoleFound = await _roleManager.RoleExistsAsync(_customerRole);
+                            if (!customerRoleFound) {
+                                _logger.LogWarning("Could not set role for " + user.UserName
+                                + " The role " + _customerRole + "does not exist");
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    await _userManager.AddToRoleAsync(user, _customerRole);
+                                }
+                                catch (Exception ex)
+                                {
+                                    _logger.LogWarning("Could not set "+ _customerRole + " role for " + user.UserName
+                                + " "+ex.Message);
+                                }
+                            }
+                        }
+
+                        if (Input.Caregiver)
+                        {
+
+                            bool caregiverRoleFound = await _roleManager.RoleExistsAsync(_caregiverRole);
+                            if (!caregiverRoleFound)
+                            {
+                                _logger.LogWarning("Could not set role for " + user.UserName
+                                + " The role " + _caregiverRole + "does not exist");
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    await _userManager.AddToRoleAsync(user, _caregiverRole);
+                                }
+                                catch (Exception ex)
+                                {
+                                    _logger.LogWarning("Could not set " + _caregiverRole + " role for " + user.UserName
+                                + " " + ex.Message);
+                                }
+                            }
+                        }
+                        #endregion
 
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

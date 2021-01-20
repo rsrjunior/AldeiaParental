@@ -38,9 +38,10 @@ namespace AldeiaParental
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
-                .AddErrorDescriber<CustomIdentityErrorDescriber>();;
+                .AddErrorDescriber<CustomIdentityErrorDescriber>(); ;
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy("AdministradorPolicy",
                                     policy => policy.RequireRole("Administrador")
                                     );
@@ -51,7 +52,7 @@ namespace AldeiaParental
                                     policy => policy.RequireRole("Cliente")
                                     );
             }
-            ); 
+            );
 
             services.AddRazorPages(options =>
             {
@@ -59,11 +60,19 @@ namespace AldeiaParental
                 options.Conventions.AuthorizeFolder("/Services", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/Users", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/CheckDocuments", "AdministradorPolicy");
-                options.Conventions.AuthorizeFolder("/ListServiceLocations", "AdministradorPolicy");      
+                options.Conventions.AuthorizeFolder("/ListServiceLocations", "AdministradorPolicy");
                 options.Conventions.AuthorizeFolder("/ServiceLocations", "CuidadorPolicy");
                 options.Conventions.AuthorizeFolder("/CaregiverServices", "CuidadorPolicy");
                 options.Conventions.AuthorizeFolder("/FindCaregivers", "ClientePolicy");
                 options.Conventions.AuthorizeFolder("/CustomerServices", "ClientePolicy");
+            });
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                            Configuration.GetSection("Authentication:Google");
+                            options.ClientId = googleAuthNSection["ClientId"];
+                            options.ClientSecret = googleAuthNSection["ClientSecret"];
             });
         }
 

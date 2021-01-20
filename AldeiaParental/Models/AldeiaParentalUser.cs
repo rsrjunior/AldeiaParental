@@ -17,8 +17,6 @@ namespace AldeiaParental.Models
         [PersonalData]
         [Required]
         public string LastName { get; set; }
-        [Required]
-        public override string PasswordHash { get; set; }
         [ProtectedPersonalData]
         [Required]
         public override string Email { get; set; }
