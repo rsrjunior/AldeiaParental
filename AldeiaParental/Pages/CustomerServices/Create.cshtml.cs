@@ -9,7 +9,7 @@ using AldeiaParental.Data;
 using AldeiaParental.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace AldeiaParental.Pages_CaregiverServices
+namespace AldeiaParental.Pages_CustomerServices
 {
     public class CreateModel : PageModel
     {
@@ -23,10 +23,11 @@ namespace AldeiaParental.Pages_CaregiverServices
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string id)
         {
-            IList<AldeiaParentalUser> customers = await _userManager.GetUsersInRoleAsync("Cliente");
-            ViewData["Customer"] = new SelectList(customers.OrderBy(c => c.Email), "Id", "Email");
+            IList<AldeiaParentalUser> caregivers = await _userManager.GetUsersInRoleAsync("Cuidador");
+            ViewData["Caregiver"] = new SelectList(caregivers.OrderBy(c => c.Email), "Id", "Email", id);
+
             return Page();
         }
 
@@ -38,7 +39,7 @@ namespace AldeiaParental.Pages_CaregiverServices
         public async Task<IActionResult> OnPostAsync()
         {
             //setar o userId para o Id do Usuario da seção.
-            Service.CaregiverId = _userManager.GetUserId(User);
+            Service.CustomerId = _userManager.GetUserId(User);
             this.ModelState.Clear();
             if (!TryValidateModel(Service))
             {

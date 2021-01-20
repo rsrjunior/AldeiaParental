@@ -2,11 +2,11 @@
 @model AldeiaParental.Pages_CaregiverServices.IndexModel
 
 @{
-    ViewData["Title"] = "Meus Atendimentos";
+    ViewData["Title"] = (User.IsInRole("Cliente") ? "Meus " : "") + "Atendimentos";
     bool disable = true;
 }
 
-<h1>Meus Atendimentos</h1>
+<h1>@(User.IsInRole("Cliente")?"Meus Atendimentos":"Atendimentos")</h1>
 
 <p>
     <a asp-page="Create">Novo Atendimento</a>
@@ -30,32 +30,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Service) {
-    disable = item.Rate==null?false:true;
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.FirstName)
-            </td> <td>
-                @Html.DisplayFor(modelItem => item.Customer.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.datetime)
-            </td>
-            <td>
-                @if (disable)
-                {<span>Editar</span>}
-                else
-                {<a asp-page="./Edit" asp-route-id="@item.Id">Editar</a>} |
-                <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
-                 @if (disable)
-                {<span>Excluir</span>}
-                else
-                {<a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>}
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Service)
+        {
+            disable = item.Rate == null ? false : true;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datetime)
+                </td>
+                <td>
+                    @if (disable)
+                    {
+                        <span>Editar</span>
+                    }
+                    else
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a>
+                    }
+                     |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
+                    @if (disable)
+                    {
+                        <span>Excluir</span>
+                    }
+                    else
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

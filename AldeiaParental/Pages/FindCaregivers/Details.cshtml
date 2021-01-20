@@ -60,7 +60,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.ServiceLocations.Where(s=>!s.AtCustomerHome))
+            @foreach (var item in Model.ServiceLocations.Where(s => !s.AtCustomerHome))
             {
                 <tr>
                     <td>
@@ -83,12 +83,14 @@
             O Cuidador pode atender no conforto de sua casa, nas seguintes regiões:
         </h4>
 
-            @foreach (var item in Model.ServiceLocations.Where(s=>s.AtCustomerHome).Distinct() )
-            {<p>@item.Region.Name</p>
-            }
-        
-</div>
+        @foreach (var item in Model.ServiceLocations.Where(s => s.AtCustomerHome).Distinct())
+        {
+            <p>@item.Region.Name</p>
+        }
+
+    </div>
 </div>
 <div>
-    <a asp-page="./Index">Listar cuidadores</a>
+    <a asp-page="../CustomerServices/Create" asp-route-id="@Model.Caregiver.Id">Agendar</a> | <a
+        asp-page="./Index">Listar cuidadores</a>
 </div>

@@ -11,7 +11,7 @@
                 <a class="nav-link text-dark" asp-area="" asp-page="/FindCaregivers/Index" title="Encontrar Cuidadores">Encontrar Cuidadores</a>
             </li> 
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-page="/CustomerServices/Index" title="Atendimentos Recebidos">Atendimentos Recebidos</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/CustomerServices/Index" title="Atendimentos Recebidos">Atendimentos @(User.IsInRole("Cuidador")?"Recebidos":null)</a>
             </li>
         }
         @if (User.IsInRole("Administrador"))
@@ -38,7 +38,7 @@
                 <a class="nav-link text-dark" asp-area="" asp-page="/ServiceLocations/Index" title="Locais de Atendimento">Locais de Atendimento</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-page="/CaregiverServices/Index" title="Meus Atendimentos">Meus Atendimentos</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/CaregiverServices/Index" title="Meus Atendimentos">@(User.IsInRole("Cliente")?"Meus":null) Atendimentos</a>
             </li>
         }
 
