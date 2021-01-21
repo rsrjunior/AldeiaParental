@@ -12,34 +12,34 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalDocument.DocumentType)
+            Tipo
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PersonalDocument.DocumentType)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalDocument.DocumentNumber)
+            Número
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PersonalDocument.DocumentNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalDocument.FilePath)
+            Arquivo
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PersonalDocument.FilePath)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalDocument.Valid)
+            Verificação
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PersonalDocument.Valid)
+             @(Model.PersonalDocument.Valid==null?"Indefinido":Model.PersonalDocument.Valid==true?"Válido":"Inválido")
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalDocument.User)
+            Usuário
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PersonalDocument.User.Id)
+            @Html.DisplayFor(model => model.PersonalDocument.User.Email)
         </dd>
     </dl>
 </div>

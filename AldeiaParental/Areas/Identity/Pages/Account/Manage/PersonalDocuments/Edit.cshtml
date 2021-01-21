@@ -14,24 +14,25 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PersonalDocument.Id" />
+            <input type="hidden" asp-for="PersonalDocument.Valid" class="form-control" />
             <div class="form-group">
-                <label asp-for="PersonalDocument.DocumentType" class="control-label"></label>
+                <label asp-for="PersonalDocument.DocumentType" class="control-label">Tipo</label>
                 <input asp-for="PersonalDocument.DocumentType" class="form-control" />
                 <span asp-validation-for="PersonalDocument.DocumentType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.DocumentNumber" class="control-label"></label>
+                <label asp-for="PersonalDocument.DocumentNumber" class="control-label">Número</label>
                 <input asp-for="PersonalDocument.DocumentNumber" class="form-control" />
                 <span asp-validation-for="PersonalDocument.DocumentNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.FilePath" class="control-label"></label>
+                <label asp-for="PersonalDocument.FilePath" class="control-label">Arquivo</label>
                 <input asp-for="PersonalDocument.FilePath" class="form-control" />
                 <span asp-validation-for="PersonalDocument.FilePath" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.Valid" class="control-label"></label>
-                <input asp-for="PersonalDocument.Valid" class="form-control" />
+                <label asp-for="PersonalDocument.Valid" class="control-label">Verificação</label>
+                
                 <span asp-validation-for="PersonalDocument.Valid" class="text-danger"></span>
             </div>
             <div class="form-group">

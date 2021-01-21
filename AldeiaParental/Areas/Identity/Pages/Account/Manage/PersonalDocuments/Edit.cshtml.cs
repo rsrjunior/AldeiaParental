@@ -51,6 +51,18 @@ namespace AldeiaParental.Areas_Identity_Pages_Account_Manage_PersonalDocuments
         {
             //ensure that only updates on current auth user
             PersonalDocument.UserId = _userManager.GetUserId(User);
+            PersonalDocument old = await _context.PersonalDocument
+                .AsNoTracking()
+                .Where(p => p.UserId == _userManager.GetUserId(User))
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.Id == PersonalDocument.Id);
+            if (!String.Equals(old.DocumentNumber, PersonalDocument.DocumentNumber) ||
+                !String.Equals(old.DocumentType, PersonalDocument.DocumentType) ||
+                !String.Equals(old.FilePath, PersonalDocument.FilePath)
+                )
+                {
+                    PersonalDocument.Valid = null;
+                }
             this.ModelState.Clear();
             if (!TryValidateModel(PersonalDocument))
             {

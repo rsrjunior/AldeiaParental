@@ -2,10 +2,10 @@
 @model AldeiaParental.Pages_Services.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Atendimentos";
 }
 
-<h1>Index</h1>
+<h1>Atendimentos</h1>
 
 <p>
     <a asp-page-handler="Csv">Download CSV</a> | <a asp-page="./Stats">Indicadores</a>
@@ -23,7 +23,7 @@
                 Avaliação
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].datetime)
+                Data
             </th>
             <th></th>
         </tr>
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.datetime)
             </td>
             <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> 
             </td>
         </tr>
 }
