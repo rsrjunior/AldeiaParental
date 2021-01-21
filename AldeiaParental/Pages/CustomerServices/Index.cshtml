@@ -15,16 +15,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].Caregiver.FirstName)
+                Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].Caregiver.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].Rate)
+                Avaliação
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service[0].datetime)
+                Data
             </th>
             <th></th>
         </tr>
@@ -46,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.datetime)
                 </td>
                 <td>
-                    <a asp-page="./Evaluate" asp-route-id="@item.Id">Evaluate</a>
+                    <a asp-page="./Evaluate" asp-route-id="@item.Id">Avaliar</a>
                 </td>
             </tr>
         }

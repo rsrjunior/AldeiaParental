@@ -12,7 +12,7 @@
         <div class="form-actions no-color">
                 Região:
                 <select name="regionId" class="form-control">
-                    <option value="null" selected="@(Model.SelectedRegionId==null?true:false)">Any</option>
+                    <option value="null" selected="@(Model.SelectedRegionId==null?true:false)">Qualquer</option>
                     @foreach (var item in Model.RegionsList)
                     {
                         <option value="@item.Value" selected="@(item.Value==Model.SelectedRegionId.ToString())">@item.Text</option>
@@ -25,7 +25,7 @@
                     <option value="true" selected="@(Model.AtHome != null ? ((bool)Model.AtHome?true:false) : false)">Na minha casa</option>
                     <option value="false"selected="@(Model.AtHome != null ? ((bool)Model.AtHome?false:true) : false)">Em outro local</option>
                 </select>
-                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <input type="submit" value="Procurar" class="btn btn-primary" /> |
                 <a asp-page="./Index">Listar sem filtros</a>
         </div>
     </form>
@@ -35,7 +35,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Caregivers[0].FirstName)
+                Nome
             </th>
             <th></th>
         </tr>

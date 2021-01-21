@@ -24,6 +24,7 @@ namespace AldeiaParental.Pages.FindCaregivers
         }
 
         public AldeiaParentalUser Caregiver { get; set; }
+        public bool VerifiedDoc { get; set; }
         public IList<ServiceLocation> ServiceLocations { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -34,11 +35,15 @@ namespace AldeiaParental.Pages.FindCaregivers
             }
 
             Caregiver = await _userManager.FindByIdAsync(id);
-           
+
             if (Caregiver == null)
             {
                 return NotFound();
             }
+
+            VerifiedDoc = _context.PersonalDocument
+                .Where(d => d.UserId == Caregiver.Id)
+                .Any(d => d.Valid.HasValue && d.Valid.Value);
 
             ServiceLocations = await _context.ServiceLocation
                 .Where(s => s.UserId == Caregiver.Id)

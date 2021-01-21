@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <label asp-for="Service.Caregiver.FirstName" class="control-label"></label>
+            <label asp-for="Service.Caregiver.FirstName" class="control-label">Nome</label>
             <input asp-for="Service.Caregiver.FirstName" class="form-control" readonly="true"/>
         </div>
         <form method="post">
@@ -21,17 +21,17 @@
             <input type="hidden" asp-for="Service.CustomerId" />
             <input type="hidden" asp-for="Service.CaregiverId" />
             <div class="form-group">
-                <label asp-for="Service.Rate" class="control-label"></label>
+                <label asp-for="Service.Rate" class="control-label">Avaliação</label>
                 <input asp-for="Service.Rate" class="form-control" min=1 max=5 value=5/>
                 <span asp-validation-for="Service.Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.CaregiverComments" class="control-label"></label>
+                <label asp-for="Service.CaregiverComments" class="control-label">Comentário do Cuidador</label>
                 <input asp-for="Service.CaregiverComments" class="form-control" readonly="true"/>
                 <span asp-validation-for="Service.CaregiverComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Service.CustomerComments" class="control-label"></label>
+                <label asp-for="Service.CustomerComments" class="control-label">Comentário do Cliente</label>
                 <input asp-for="Service.CustomerComments" class="form-control" />
                 <span asp-validation-for="Service.CustomerComments" class="text-danger"></span>
             </div>

@@ -14,16 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceLocation[0].AtCustomerHome)
+                Descrição
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceLocation[0].Description)
+                Endereço
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceLocation[0].Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceLocation[0].Region)
+                Região
             </th>
             <th></th>
         </tr>
@@ -32,13 +29,11 @@
 @foreach (var item in Model.ServiceLocation) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AtCustomerHome)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
+                @(item.AtCustomerHome?"(à domicílio)":null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Region.Name)
