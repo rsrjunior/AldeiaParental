@@ -1,0 +1,54 @@
+@page
+@model AldeiaParental.Pages_Services.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes do Atendimento";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Atendimento</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nome Cliente
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.Customer.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            Email Cliente
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.Customer.Email)
+        </dd>
+        <dt class="col-sm-2">
+           Avaliação
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.Rate)
+        </dd>
+        <dt class="col-sm-2">
+            Meu Comentário
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.CaregiverComments)
+        </dd>
+        <dt class="col-sm-2">
+            Comentário do Cliente
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.CustomerComments)
+        </dd>
+        <dt class="col-sm-2">
+            Data
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.datetime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Index">Listar Atendimentos</a>
+</div>
