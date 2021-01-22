@@ -8,19 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace AldeiaParental.Areas_Identity_Pages_Account_Manage_PersonalDocuments
 {
     public class DeleteModel : PageModel
     {
         private readonly AldeiaParental.Data.ApplicationDbContext _context;
-         private readonly UserManager<AldeiaParentalUser> _userManager;
-
+        private readonly UserManager<AldeiaParentalUser> _userManager;
+        private IWebHostEnvironment _environment;
         public DeleteModel(AldeiaParental.Data.ApplicationDbContext context,
-        UserManager<AldeiaParentalUser> userManager)
+        UserManager<AldeiaParentalUser> userManager,
+        IWebHostEnvironment environment)
         {
             _context = context;
             _userManager = userManager;
+            _environment = environment;
         }
 
         [BindProperty]
@@ -54,8 +59,14 @@ namespace AldeiaParental.Areas_Identity_Pages_Account_Manage_PersonalDocuments
 
             if (PersonalDocument != null)
             {
-                if (PersonalDocument.UserId==_userManager.GetUserId(User))
+                if (PersonalDocument.UserId==_userManager.GetUserId(User) &&
+                    !(PersonalDocument.Valid??false))
                 {
+                     if(!String.IsNullOrEmpty(PersonalDocument.FilePath) &&
+                        System.IO.File.Exists(Path.Combine(_environment.ContentRootPath, "uploads", PersonalDocument.FilePath)))
+                    {
+                        System.IO.File.Delete(Path.Combine(_environment.ContentRootPath, "uploads", PersonalDocument.FilePath));
+                    }
                     _context.PersonalDocument.Remove(PersonalDocument);
                     await _context.SaveChangesAsync();
                 }

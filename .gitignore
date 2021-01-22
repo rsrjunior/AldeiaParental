@@ -341,3 +341,6 @@ healthchecksdb
 /Data/ActorsUserData.cs
 /.vscode
 appsettings.json
+
+#user upload
+uploads/

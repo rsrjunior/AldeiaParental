@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Editar Documento";
+    bool readOnly = Model.PersonalDocument.Valid??false;
 }
 
 <h1>Editar</h1>
@@ -11,32 +12,31 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PersonalDocument.Id" />
             <input type="hidden" asp-for="PersonalDocument.Valid" class="form-control" />
             <div class="form-group">
                 <label asp-for="PersonalDocument.DocumentType" class="control-label">Tipo</label>
-                <input asp-for="PersonalDocument.DocumentType" class="form-control" />
+                <input asp-for="PersonalDocument.DocumentType" class="form-control" readonly=@readOnly/>
                 <span asp-validation-for="PersonalDocument.DocumentType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PersonalDocument.DocumentNumber" class="control-label">Número</label>
-                <input asp-for="PersonalDocument.DocumentNumber" class="form-control" />
+                <input asp-for="PersonalDocument.DocumentNumber" class="form-control" readOnly=@readOnly/>
                 <span asp-validation-for="PersonalDocument.DocumentNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.FilePath" class="control-label">Arquivo</label>
-                <input asp-for="PersonalDocument.FilePath" class="form-control" />
+                <label>Arquivo (.pdf) max 1 Mb</label>
+                <input type="file" asp-for="Upload" class="form-control-file"/>
                 <span asp-validation-for="PersonalDocument.FilePath" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.Valid" class="control-label">Verificação</label>
-                
-                <span asp-validation-for="PersonalDocument.Valid" class="text-danger"></span>
+                <label asp-for="PersonalDocument.Valid" class="control-label">Verificação:</label>
+                @(Model.PersonalDocument.Valid==null?"Indefinido":Model.PersonalDocument.Valid==true?"Válido":"Inválido")
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" disabled=@readOnly/>
             </div>
         </form>
     </div>

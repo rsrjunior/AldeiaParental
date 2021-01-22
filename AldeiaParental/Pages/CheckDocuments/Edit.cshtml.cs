@@ -8,16 +8,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AldeiaParental.Data;
 using AldeiaParental.Models;
+using Microsoft.AspNetCore.Identity;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AldeiaParental.Pages_CheckDocuments
 {
     public class EditModel : PageModel
     {
         private readonly AldeiaParental.Data.ApplicationDbContext _context;
+        private IWebHostEnvironment _environment;
 
-        public EditModel(AldeiaParental.Data.ApplicationDbContext context)
+        public EditModel(AldeiaParental.Data.ApplicationDbContext context,
+        IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         [BindProperty]
@@ -74,6 +80,23 @@ namespace AldeiaParental.Pages_CheckDocuments
         private bool PersonalDocumentExists(int id)
         {
             return _context.PersonalDocument.Any(e => e.Id == id);
+        }
+        public ActionResult OnGetDownloadFile(string fileName)
+        {
+            //Build the File Path.
+            string path = Path.Combine(_environment.ContentRootPath, "uploads", fileName);
+
+            try
+            {
+                //Read the File data into Byte Array.
+                byte[] bytes = System.IO.File.ReadAllBytes(path);
+                return File(bytes, "application/octet-stream", fileName);
+            }
+            catch (System.Exception)
+            {
+               return new RedirectToPageResult("Index");
+            }
+            
         }
     }
 }

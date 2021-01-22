@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PersonalDocument.DocumentType" class="control-label">Tipo</label>
@@ -24,8 +24,8 @@
                 <span asp-validation-for="PersonalDocument.DocumentNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PersonalDocument.FilePath" class="control-label">Arquivo</label>
-                <input asp-for="PersonalDocument.FilePath" class="form-control" />
+                <label>Arquivo (.pdf) max 1 Mb</label>
+                <input type="file" asp-for="Upload" class="form-control-file"/>
                 <span asp-validation-for="PersonalDocument.FilePath" class="text-danger"></span>
             </div>
             <div class="form-group">

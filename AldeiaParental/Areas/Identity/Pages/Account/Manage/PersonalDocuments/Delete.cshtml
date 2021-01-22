@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Excluir Documento";
+    bool readOnly = Model.PersonalDocument.Valid??false;
 }
 
 <h1>Excluir</h1>
@@ -36,17 +37,11 @@
         <dd class="col-sm-10">
              @(Model.PersonalDocument.Valid==null?"Indefinido":Model.PersonalDocument.Valid==true?"Válido":"Inválido")
         </dd>
-        <dt class="col-sm-2">
-            Usuário
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PersonalDocument.User.Id)
-        </dd>
     </dl>
     
     <form method="post">
         <input type="hidden" asp-for="PersonalDocument.Id" />
-        <input type="submit" value="Excluir" class="btn btn-danger" /> |
+        <input type="submit" value="Excluir" class="btn btn-danger" disabled=@readOnly/> |
         <a asp-page="./Index">Listar Documentos</a>
     </form>
 </div>

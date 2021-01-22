@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PersonalDocument.FilePath" class="control-label">Arquivo</label>
-                <input asp-for="PersonalDocument.FilePath" class="form-control" readonly="true" />
+                <a asp-page-handler="DownloadFile" asp-route-fileName=@Model.PersonalDocument.FilePath>@Model.PersonalDocument.FilePath</a>
             </div>
             <div class="form-group">
                 <label asp-for="PersonalDocument.Valid" class="control-label">Verificação</label>

@@ -27,7 +27,7 @@
             Arquivo
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PersonalDocument.FilePath)
+            <a asp-page-handler="DownloadFile" asp-route-fileName=@Model.PersonalDocument.FilePath>@Model.PersonalDocument.FilePath</a>
         </dd>
         <dt class="col-sm-2">
             Verificação
@@ -44,6 +44,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.PersonalDocument.Id">Edit</a> |
+    <a asp-page="./Edit" asp-route-id="@Model.PersonalDocument.Id">Editar</a> |
     <a asp-page="./Index">Listar Documentos</a>
 </div>
