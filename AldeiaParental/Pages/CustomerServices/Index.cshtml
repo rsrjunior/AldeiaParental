@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = (User.IsInRole("Cuidador") ? "Atendimentos Recebidos" : "Atendimentos");
+     bool past = true;
 }
 
 <h1>@(User.IsInRole("Cuidador")?"Atendimentos Recebidos":"Atendimentos")</h1>
@@ -32,6 +33,7 @@
     <tbody>
         @foreach (var item in Model.Service)
         {
+            past = (item.datetime <= DateTime.Now) ? false : true;
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Caregiver.FirstName)
@@ -46,7 +48,23 @@
                     @Html.DisplayFor(modelItem => item.datetime)
                 </td>
                 <td>
-                    <a asp-page="./Evaluate" asp-route-id="@item.Id">Avaliar</a>
+                    @if (past)
+                    {
+                        <span>Avaliar</span>
+                    }
+                    else
+                    {
+                        <a asp-page="./Evaluate" asp-route-id="@item.Id">Avaliar</a>
+                    }
+                    |
+                    @if (!past)
+                    {
+                        <span>Excluir</span>
+                    }
+                    else
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a>
+                    }
                 </td>
             </tr>
         }
