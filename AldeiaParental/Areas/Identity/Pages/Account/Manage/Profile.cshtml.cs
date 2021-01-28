@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using AldeiaParental.Data;
 
 namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
 {
@@ -17,6 +18,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<AldeiaParentalUser> _signInManager;
         private readonly RoleManager<AldeiaParentalRole> _roleManager;
         private readonly ILogger<ProfileModel> _logger;
+        private readonly ApplicationDbContext _context;
 
         private const string _customerRole = "Cliente";
         private const string _caregiverRole = "Cuidador";
@@ -25,15 +27,18 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
             UserManager<AldeiaParentalUser> userManager,
             RoleManager<AldeiaParentalRole> roleManager,
             SignInManager<AldeiaParentalUser> signInManager,
-            ILogger<ProfileModel> logger)
+            ILogger<ProfileModel> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _logger = logger;
+            _context = context;
         }
 
         public string Username { get; set; }
+        public bool ValidDocs { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -52,6 +57,12 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
             public bool Caregiver { get; set; }
             [Display(Name = "Endereço")]
             public string Address { get; set; }
+            [Required]
+            [Display(Name = "Nome")]
+            public string  FirstName { get; set; }
+            [Required]
+            [Display(Name = "Sobrenome")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(AldeiaParentalUser user)
@@ -61,28 +72,26 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
             var caregiver = await _userManager.IsInRoleAsync(user, _caregiverRole);
             var customer = await _userManager.IsInRoleAsync(user, _customerRole);
 
-
-
             Username = userName;
-
+            ValidDocs = _context.PersonalDocument.Any(d => d.UserId.Equals(user.Id) && (d.Valid??false));
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 Caregiver = caregiver,
                 Customer = customer,
-                Address = user.Address
+                Address = user.Address,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
-
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
             await LoadAsync(user);
             return Page();
         }
@@ -110,6 +119,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                     StatusMessage+= "Unexpected error when trying to set phone number.";
                 }
             }
+            
             if (Input.Address != user.Address)
             {
                 user.Address = Input.Address;
@@ -118,6 +128,29 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                 if (!updateAddress.Succeeded)
                 {
                     StatusMessage += "Unexpected error when trying to set Address.";
+                }
+       
+            }
+            bool validDocs = _context.PersonalDocument.Any(d => d.UserId.Equals(user.Id) && (d.Valid??false));
+            if (!validDocs && Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+
+                var updateFirstName = await _userManager.UpdateAsync(user);
+                if (!updateFirstName.Succeeded)
+                {
+                    StatusMessage += "Unexpected error when trying to set FirsName.";
+                }
+       
+            }
+            if (!validDocs && Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+
+                var updateLastName = await _userManager.UpdateAsync(user);
+                if (!updateLastName.Succeeded)
+                {
+                    StatusMessage += "Unexpected error when trying to set LastName.";
                 }
        
             }

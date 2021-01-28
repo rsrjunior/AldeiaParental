@@ -15,25 +15,25 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ServiceLocation.AtCustomerHome" /> @Html.DisplayNameFor(model => model.ServiceLocation.AtCustomerHome)
+                    <input class="form-check-input" asp-for="ServiceLocation.AtCustomerHome" />À domicílio
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceLocation.Description" class="control-label"></label>
+                <label asp-for="ServiceLocation.Description" class="control-label">Descrição</label>
                 <input asp-for="ServiceLocation.Description" class="form-control" />
                 <span asp-validation-for="ServiceLocation.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceLocation.Address" class="control-label"></label>
+                <label asp-for="ServiceLocation.Address" class="control-label">Endereço</label>
                 <input asp-for="ServiceLocation.Address" class="form-control" />
                 <span asp-validation-for="ServiceLocation.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceLocation.Region" class="control-label"></label>
+                <label asp-for="ServiceLocation.Region" class="control-label">Região</label>
                 <select asp-for="ServiceLocation.RegionId" class ="form-control" asp-items="ViewBag.Region"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
