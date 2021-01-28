@@ -29,7 +29,7 @@ namespace AldeiaParental.Pages
             _signInManager = signInManager;
         }
 
-        public string UserFirstName { get; set; }
+        public string UserName { get; set; }
         public IList<string> UserRoles { get; set; } 
 
         [TempData]
@@ -37,7 +37,7 @@ namespace AldeiaParental.Pages
 
         private async Task LoadAsync(AldeiaParentalUser user)
         {
-            UserFirstName = user.FirstName;
+            UserName = $"{user.FirstName} {user.LastName}";
             UserRoles = await _userManager.GetRolesAsync(user);
 
         }
@@ -49,7 +49,7 @@ namespace AldeiaParental.Pages
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            UserFirstName = user.FirstName;
+            UserName =  $"{user.FirstName} {user.LastName}";
             UserRoles = await _userManager.GetRolesAsync(user);
 
             //await LoadAsync(user);

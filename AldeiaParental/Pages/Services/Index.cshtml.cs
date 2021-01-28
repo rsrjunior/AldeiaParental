@@ -35,7 +35,9 @@ namespace AldeiaParental.Pages_Services
             List<Service> _services = await _context.Service.ToListAsync<Service>();
             foreach (var service in _services)
             {
-                builder.AppendLine($"{service.CaregiverId},{service.CustomerId},{service.Rate},{service.datetime},{service.CaregiverComments.Replace(",","")},{service.CustomerComments.Replace(",","")}");
+                builder.Append($"{service.CaregiverId},{service.CustomerId},{(service.Rate??0)},{service.datetime}");
+                builder.Append($",{(string.IsNullOrEmpty(service.CaregiverComments)?string.Empty:service.CaregiverComments.Replace(",",""))}");
+                builder.AppendLine($",{(string.IsNullOrEmpty(service.CustomerComments)?string.Empty:service.CustomerComments.Replace(",",""))}");           
             }
 
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "services.csv");

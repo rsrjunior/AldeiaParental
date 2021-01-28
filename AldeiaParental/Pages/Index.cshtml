@@ -6,27 +6,44 @@
 
     <div class="text-center">
         <h1 class="display-4">Pagina Inicial</h1>
-
-        <div>
-            <div>
-                <label asp-for="UserFirstName"></label>
-                <p>@Model.UserFirstName</p>
-            </div>
-            <div>
-                <label asp-for="UserRoles"></label>
-                <ul>
-                    @foreach (var userRole in Model.UserRoles)
-                    {
-                        <li>@userRole</li>
-                    }
-                </ul>
- 
-            </div>
-        </div>
-
-        <p>Todo: Deve conter painel com as informações/ações principais de cada perfil, identificados através do usuário logado</p>
-        <p>ex. Bem Vindo Roberto(Cliente): Encontre um cuidador para seu filho</p>
-        <p>ex. Bem Vindo Roberto(Cuidador): Cadastre seus locais de atendimento</p>
-
-
+        <br>
     </div>
+<p>Bem-Vindo @Model.UserName, navegue através da funcionalidades disponíveis:</p>
+@if(Model.UserRoles.Contains("Cliente"))
+{
+<p>Cliente</p>
+<ul>
+<li><a asp-page="/FindCaregivers/Index">Encontrar Cuidadores</a></li>
+<li><a asp-page="/CustomerServices/Index">Listar/Avaliar Atendimentos</a></li>
+</ul>
+}
+@if(Model.UserRoles.Contains("Cuidador"))
+{
+<p>Cuidador</p>
+<ul>
+<li><a asp-page="/ServiceLocations/Index">Meus Locais de Atendimento</a></li>
+<li><a asp-page="/ServiceLocations/Create">Novo Local de Atendimento</a></li>
+<li><a asp-page="/CaregiverServices/Index">Listar Meus Atendimentos</a></li>
+<li><a asp-page="/CaregiverServices/Create">Registrar Atendimento</a></li>
+</ul>
+}
+@if(Model.UserRoles.Contains("Administrador"))
+{
+<p>Administrador</p>
+<ul>
+<li><a asp-page="/Regions/Index">Listar Regiões</a></li>
+<li><a asp-page="/Regions/Index" asp-page-handler="Csv">Download Regiões</a></li>
+<li><a asp-page="/Regions/Create">Criar Nova Região</a></li>
+<li><a asp-page="/CheckDocuments/Index">Verificar Documentos</a></li>
+<li><a asp-page="/CheckDocuments/Index" asp-page-handler="Csv">Download Documentos</a></li>
+<li><a asp-page="/Users/Index">Gerenciar Usuários</a></li>
+<li><a asp-page="/Users/Index" asp-page-handler="Csv">Download Usuários</a></li>
+<li><a asp-page="/Users/Stats">Indicadores Usuários</a></li>
+<li><a asp-page="/Services/Index">Listar Atendimentos</a></li>
+<li><a asp-page="/Services/Index" asp-page-handler="Csv">Download Atendimentos</a></li>
+<li><a asp-page="/Services/Stats">Indicadores Atendimentos</a></li>
+<li><a asp-page="/ListServiceLocations/Index">Listar Locais de Atendimento</a></li>
+<li><a asp-page="/ListServiceLocations/Index" asp-page-handler="Csv">Download Locais de Atendimento</a></li>
+<li><a asp-page="/ListServiceLocations/Stats">Indicador Cuidadores por Região</a></li>		
+</ul>
+}

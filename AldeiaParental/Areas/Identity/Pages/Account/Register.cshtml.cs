@@ -67,7 +67,7 @@ namespace AldeiaParental.Areas.Identity.Pages.Account
             public bool Caregiver { get; set; }
 
             [Required(ErrorMessage = "{0} Obrigatório.")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Digite um endereço de email válido")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 

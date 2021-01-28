@@ -1,0 +1,81 @@
+Página Inicial
+	Login
+		Formulário de Login
+		Login com Google
+	Cadastro
+		Formulário de Cadastro
+		Cadastro com Google
+--usuário
+	Minha Conta
+		Perfil
+			Formulário de Perfil
+		Senha
+			Formulário de Senha
+		Documentos
+			Lista de documentos
+			Novo documento
+		Login Externo
+			Inclusão/Visualização Login Google
+		Dados Pessoais
+			Download/Exclusão de Dados Pessoais
+	Encerrar Sessão 
+--cliente
+	Encontrar Cuidadores
+		Pesquisa de Cuidadores
+		Detalhes do Cuidador
+	Atendimentos
+		Listar
+			Avaliar Atendimento
+		Novo Atendimento
+--cuidador
+	Locais de Atendimento
+		Listar
+			Detalhes
+			Editar
+			Excluir
+		Criar Local de Atendimento
+	Atendimentos
+		Listar
+			Detalhes
+			Editar
+			Excluir
+		Novo Atendimento
+--administrador
+	Regiões
+		Listar
+			Detalhes
+			Editar
+			Excluir
+		Criar Nova Região
+		Download
+	Verificar Documentos
+		Listar
+			Verificar
+		Download
+	Usuários
+		Listar
+			Gerenciar (Bloqueio/Desbloqueio)
+		Download
+		Indicadores
+			Usuários por Perfil
+			Cadastro Mensal
+	Atendimentos
+		Listar
+			Detalhes
+		Download
+		Indicadores
+			Numero de Atendimentos por mês
+			Média Avaliação de Atendimentos por mês
+	Locais de Atendimento
+		Listar
+			Detalhes
+		Download
+		Indicadores
+			Número de Cuidadores por Região
+			
+			
+			
+			
+	
+		
+		
