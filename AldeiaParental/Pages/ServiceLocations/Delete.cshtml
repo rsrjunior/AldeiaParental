@@ -13,25 +13,25 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceLocation.AtCustomerHome)
+            À domicílio
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ServiceLocation.AtCustomerHome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceLocation.Description)
+            Descrição
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ServiceLocation.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceLocation.Address)
+            Endereço
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ServiceLocation.Address)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceLocation.Region)
+            Região
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ServiceLocation.Region.Name)
@@ -40,7 +40,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="ServiceLocation.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index">Listar Locais</a>
     </form>
 </div>

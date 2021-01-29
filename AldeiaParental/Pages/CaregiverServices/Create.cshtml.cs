@@ -37,11 +37,27 @@ namespace AldeiaParental.Pages_CaregiverServices
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
             //setar o userId para o Id do Usuario da seção.
-            Service.CaregiverId = _userManager.GetUserId(User);
+            Service.CaregiverId = user.Id;
             this.ModelState.Clear();
             if (!TryValidateModel(Service))
             {
+                return Page();
+            }
+            if (Service.datetime<(user.RegistrationDate??DateTime.Now))
+            {
+                IList<AldeiaParentalUser> customers = await _userManager.GetUsersInRoleAsync("Cliente");
+                ViewData["Customer"] = new SelectList(customers.OrderBy(c => c.Email), "Id", "Email");
+                ModelState.AddModelError(string.Empty, $"Informe a data do atendimento a partir de {(user.RegistrationDate??DateTime.Now).ToString("dd/MM/yyyy")}");
+                return Page();
+            }
+            
+            if (Service.CaregiverId==null)
+            {
+                IList<AldeiaParentalUser> customers = await _userManager.GetUsersInRoleAsync("Cliente");
+                ViewData["Customer"] = new SelectList(customers.OrderBy(c => c.Email), "Id", "Email");
+                ModelState.AddModelError(string.Empty, $"Selecione o Cliente");
                 return Page();
             }
 
