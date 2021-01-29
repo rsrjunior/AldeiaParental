@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using AldeiaParental.Data;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
 {
@@ -14,15 +20,18 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AldeiaParentalUser> _userManager;
         private readonly SignInManager<AldeiaParentalUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly ApplicationDbContext _context;
 
         public DeletePersonalDataModel(
             UserManager<AldeiaParentalUser> userManager,
             SignInManager<AldeiaParentalUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -44,7 +53,6 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
             RequirePassword = await _userManager.HasPasswordAsync(user);
             return Page();
         }
@@ -66,6 +74,20 @@ namespace AldeiaParental.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
+            bool ratedServices = _context.Service.Any(s => (s.CustomerId == user.Id || s.CaregiverId == user.Id) && s.Rate.HasValue);
+
+            if (ratedServices)
+            {
+                ModelState.AddModelError(string.Empty, "Impossível Excluir: existem atendimentos registrados.");
+                return Page();
+            }
+
+
+
+            IList<Service> ser = _context.Service
+            .Where(s => (s.CustomerId == user.Id || s.CaregiverId == user.Id))
+            .ToList();
+            _context.Service.RemoveRange(ser);
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
