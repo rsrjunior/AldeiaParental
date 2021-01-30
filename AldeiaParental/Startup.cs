@@ -77,7 +77,7 @@ namespace AldeiaParental
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AldeiaParental.Data.ApplicationDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -104,7 +104,8 @@ namespace AldeiaParental
                 endpoints.MapRazorPages();
             });
 
-            //ActorsUserData.Initialize(context, userManager, roleManager).Wait();
+            //ensure database is created
+            context.Database.Migrate();
         }
     }
 }
