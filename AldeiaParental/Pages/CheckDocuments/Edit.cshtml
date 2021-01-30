@@ -23,6 +23,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PersonalDocument.Id" />
             <input type="hidden" asp-for="PersonalDocument.UserId">
+            <input type="hidden" asp-for="PersonalDocument.FilePath">
             <div class="form-group">
                 <label asp-for="PersonalDocument.DocumentType" class="control-label">Tipo</label>
                 <input asp-for="PersonalDocument.DocumentType" class="form-control" readonly="true" />
