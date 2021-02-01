@@ -10,6 +10,7 @@ namespace AldeiaParentalTests
     {
         [Theory]
         [InlineData("FirtName", "LastName", "mail@mail.com", "password")]
+        [InlineData("FirstName", "LastName", "mail@mail.com", null)]//for external Login Case
         public void RegisterShouldPass(string firstName, string lastName, string email, string password)
         {
             //Arrange
@@ -26,8 +27,7 @@ namespace AldeiaParentalTests
             //Assert
             Assert.Equal(0, errors.Count);
         }
-        [Theory]
-        [InlineData("FirstName", "LastName", "mail@mail.com", null)]
+        [Theory] 
         [InlineData("FirstName", "LastName", null, "password")]
         [InlineData("FirstName", "LastName", null, null)]
         [InlineData("FirstName", null, null, null)]
