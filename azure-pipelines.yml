@@ -35,3 +35,7 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'current'
+    targetPath: '$(Pipeline.Workspace)'
